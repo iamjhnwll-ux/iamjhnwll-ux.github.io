@@ -1,0 +1,121 @@
+---
+import { getCollection } from 'astro:content';
+
+const work = (await getCollection('work')).sort((a, b) => a.data.order - b.data.order);
+---
+
+<section id="work" class="section">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Selected work</span>
+      <h2>What I have built</h2>
+      <p>
+        Real projects from my roles, described without client code or data. Each case study covers
+        the problem, the approach, the tools and the result.
+      </p>
+    </div>
+    <div class="grid">
+      {
+        work.map((w) => (
+          <a class="card item" href={`/work/${w.id}/`}>
+            <div class="meta">
+              <span class="area">{w.data.area}</span>
+              <span class="org">{w.data.org}</span>
+            </div>
+            <h3>{w.data.title}</h3>
+            <p>{w.data.summary}</p>
+            {w.data.outcomes[0] && (
+              <div class="result">
+                <strong>{w.data.outcomes[0].value}</strong>
+                <span>{w.data.outcomes[0].label}</span>
+              </div>
+            )}
+            <ul class="chips">
+              {w.data.tools.slice(0, 4).map((t) => (
+                <li class="chip">{t}</li>
+              ))}
+            </ul>
+            <span class="more">
+              Read case study <span aria-hidden="true">&rarr;</span>
+            </span>
+          </a>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .grid {
+    display: grid;
+    gap: 20px;
+  }
+  @media (min-width: 720px) {
+    .grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  .item {
+    display: flex;
+    flex-direction: column;
+    padding: 26px;
+    color: var(--text);
+    text-decoration: none;
+    transition: transform 0.15s ease, border-color 0.15s ease;
+  }
+  .item:hover {
+    transform: translateY(-2px);
+    border-color: var(--accent);
+    color: var(--text);
+  }
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 12px;
+    font-size: 0.8rem;
+  }
+  .area {
+    font-family: var(--font-mono);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--accent);
+  }
+  .org {
+    color: var(--muted);
+  }
+  .item p {
+    color: var(--muted);
+    font-size: 0.95rem;
+  }
+  .result {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    padding: 12px 14px;
+    margin-bottom: 16px;
+    border-radius: 10px;
+    background: var(--accent-soft);
+  }
+  .result strong {
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: var(--accent);
+    white-space: nowrap;
+  }
+  .result span {
+    font-size: 0.88rem;
+    color: var(--text);
+  }
+  .chips {
+    margin-bottom: 18px;
+  }
+  .more {
+    margin-top: auto;
+    font-weight: 600;
+    font-size: 0.92rem;
+    color: var(--accent);
+  }
+</style>

@@ -1,0 +1,211 @@
+---
+const stages = [
+  { key: 'src', name: 'Sources', sub: 'Ingest', items: ['REST APIs', 'ERP and CRM', 'SharePoint', 'Excel and Lists'] },
+  { key: 'bronze', name: 'Bronze', sub: 'Lakehouse', items: ['Raw, as received', 'Source-specific', 'Incremental loads'] },
+  { key: 'silver', name: 'Silver', sub: 'Lakehouse', items: ['Cleaned and typed', 'Source business rules', 'Data quality checks'] },
+  { key: 'gold', name: 'Gold', sub: 'Warehouse', items: ['Facts', 'Conformed dimensions', 'Slowly changing dims'] },
+  { key: 'model', name: 'Semantic', sub: 'Models', items: ['Direct Lake', 'DAX measures', 'Dynamic RLS'] },
+  { key: 'bi', name: 'Delivery', sub: 'Power BI', items: ['Org and workspace apps', 'Paginated reports', 'Scheduled delivery'] },
+];
+
+const governance = [
+  'Git version control',
+  'CI/CD: DEV to QA to PROD',
+  'Approval-gated releases',
+  'Semantic-model contract tests',
+  'RLS and RBAC',
+  'Monitoring and runbooks',
+];
+
+const principles = [
+  {
+    title: 'Separate source logic from business logic',
+    text: 'Each source gets its own Bronze and Silver processing. Shared business definitions live once, in a unified Gold Warehouse.',
+  },
+  {
+    title: 'Separate data access from distribution',
+    text: 'Row-level security decides what data a person can see. Apps decide which content they receive. Two controls, each easy to audit.',
+  },
+  {
+    title: 'Everything in Git, promoted by pipeline',
+    text: 'Fabric items are versioned in Git and released through GitHub Actions and fabric-cicd, with an approval step before production.',
+  },
+];
+---
+
+<section id="architecture" class="section section--alt">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">How I build</span>
+      <h2>Medallion architecture, governed end to end</h2>
+      <p>
+        The pattern I use on Microsoft Fabric (and Databricks): raw data lands safely, is cleaned
+        per source, then modelled once for the whole business and served to Power BI.
+      </p>
+    </div>
+
+    <ol class="flow" aria-label="Data flow from sources to Power BI">
+      {
+        stages.map((s, i) => (
+          <li class={`stage s-${s.key}`}>
+            <div class="stage-head">
+              <span class="num">{String(i + 1).padStart(2, '0')}</span>
+              <div>
+                <strong>{s.name}</strong>
+                <small>{s.sub}</small>
+              </div>
+            </div>
+            <ul>
+              {s.items.map((it) => <li>{it}</li>)}
+            </ul>
+          </li>
+        ))
+      }
+    </ol>
+
+    <div class="gov">
+      <span class="gov-label">Across every layer</span>
+      <ul class="chips">
+        {governance.map((g) => <li class="chip">{g}</li>)}
+      </ul>
+    </div>
+
+    <div class="principles">
+      {
+        principles.map((p) => (
+          <div>
+            <h3>{p.title}</h3>
+            <p>{p.text}</p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .flow {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 14px;
+    counter-reset: none;
+  }
+  @media (min-width: 640px) {
+    .flow {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+  @media (min-width: 1040px) {
+    .flow {
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+    }
+  }
+  .stage {
+    position: relative;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-top: 4px solid var(--c);
+    border-radius: 12px;
+    padding: 16px;
+  }
+  @media (min-width: 1040px) {
+    .stage:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      right: -12px;
+      top: 30px;
+      width: 10px;
+      height: 10px;
+      border-top: 2px solid var(--muted);
+      border-right: 2px solid var(--muted);
+      transform: rotate(45deg);
+      opacity: 0.6;
+    }
+  }
+  .s-src { --c: #64748b; }
+  .s-bronze { --c: #b8733b; }
+  .s-silver { --c: #8a99ab; }
+  .s-gold { --c: #d4a72c; }
+  .s-model { --c: #2f7fd1; }
+  .s-bi { --c: #0b9bb0; }
+  .stage-head {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+  .num {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--muted);
+  }
+  .stage-head strong {
+    display: block;
+    font-size: 1rem;
+    line-height: 1.2;
+  }
+  .stage-head small {
+    color: var(--muted);
+    font-size: 0.8rem;
+  }
+  .stage ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 6px;
+  }
+  .stage ul li {
+    font-size: 0.85rem;
+    color: var(--muted);
+    padding: 5px 8px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+  }
+  .gov {
+    margin-top: 18px;
+    padding: 18px;
+    border: 1px dashed var(--accent);
+    border-radius: 12px;
+    background: var(--accent-soft);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px 18px;
+  }
+  .gov-label {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--accent-strong);
+  }
+  .gov .chip {
+    background: var(--surface);
+    white-space: normal;
+  }
+  .principles {
+    margin-top: 48px;
+    display: grid;
+    gap: 28px;
+  }
+  @media (min-width: 860px) {
+    .principles {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+  .principles h3 {
+    padding-top: 14px;
+    border-top: 2px solid var(--accent);
+  }
+  .principles p {
+    color: var(--muted);
+    font-size: 0.95rem;
+    margin: 0;
+  }
+</style>

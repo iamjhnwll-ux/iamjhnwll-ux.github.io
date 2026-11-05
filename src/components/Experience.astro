@@ -1,0 +1,147 @@
+---
+import { experience, certifications, education, profile } from '../data/site.js';
+---
+
+<section id="experience" class="section">
+  <div class="container cols">
+    <div>
+      <div class="section-head">
+        <span class="eyebrow">Experience</span>
+        <h2>Six years, from operations data to data platforms</h2>
+      </div>
+      <ol class="timeline">
+        {
+          experience.map((e) => (
+            <li>
+              <span class="period">{e.period}</span>
+              <h3>{e.role}</h3>
+              <p class="org">
+                {e.org} <span>· {e.detail}</span>
+              </p>
+              <p class="text">{e.text}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+
+    <aside>
+      <div class="card side">
+        <span class="eyebrow">Certifications</span>
+        <ul class="certs">
+          {
+            certifications.map((c) => (
+              <li>
+                <strong>{c.name}</strong>
+                <span>
+                  {c.issuer}
+                  {c.date && ` · ${c.date}`}
+                </span>
+              </li>
+            ))
+          }
+        </ul>
+        <a class="all" href={profile.certsUrl} rel="noopener">See all 59 on LinkedIn &rarr;</a>
+      </div>
+      <div class="card side">
+        <span class="eyebrow">Education</span>
+        <strong class="degree">{education.degree}</strong>
+        <span class="school">{education.school} · {education.period}</span>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<style>
+  .cols {
+    display: grid;
+    gap: 48px;
+  }
+  @media (min-width: 960px) {
+    .cols {
+      grid-template-columns: 1.5fr 1fr;
+      align-items: start;
+    }
+  }
+  .timeline {
+    list-style: none;
+    margin: 0;
+    padding: 0 0 0 22px;
+    border-left: 2px solid var(--border);
+  }
+  .timeline li {
+    position: relative;
+    padding-bottom: 30px;
+  }
+  .timeline li::before {
+    content: '';
+    position: absolute;
+    left: -30px;
+    top: 6px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--surface);
+    border: 3px solid var(--accent);
+  }
+  .period {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--accent);
+    font-weight: 600;
+  }
+  .timeline h3 {
+    margin: 4px 0 2px;
+  }
+  .org {
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+  .org span {
+    font-weight: 400;
+    color: var(--muted);
+  }
+  .text {
+    color: var(--muted);
+    font-size: 0.95rem;
+    margin: 0;
+  }
+  aside {
+    display: grid;
+    gap: 20px;
+  }
+  .side {
+    padding: 24px;
+  }
+  .certs {
+    list-style: none;
+    margin: 0 0 16px;
+    padding: 0;
+    display: grid;
+    gap: 14px;
+  }
+  .certs li {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--border);
+  }
+  .certs strong {
+    font-size: 0.93rem;
+    line-height: 1.4;
+  }
+  .certs span,
+  .school {
+    font-size: 0.85rem;
+    color: var(--muted);
+  }
+  .all {
+    font-weight: 600;
+    font-size: 0.92rem;
+  }
+  .degree {
+    display: block;
+    margin-bottom: 4px;
+  }
+</style>

@@ -1,0 +1,278 @@
+---
+import { profile } from '../data/site.js';
+
+// Set to '/profile.jpg' once a photo is added to public/.
+const photo = null;
+
+const stack = ['Microsoft Fabric', 'Azure', 'PySpark', 'SQL', 'dbt', 'Power BI', 'GitHub Actions'];
+---
+
+<section class="hero">
+  <div class="grid-bg" aria-hidden="true"></div>
+  <div class="container inner">
+    <div class="copy">
+      <span class="pill"><span class="dot" aria-hidden="true"></span>Open to part-time and contract work</span>
+      <h1>{profile.name}</h1>
+      <p class="title">{profile.title}</p>
+      <p class="tagline">{profile.tagline}</p>
+      <div class="ctas">
+        <a class="btn btn--primary" href="#work">See my work</a>
+        <a class="btn btn--light" href={`mailto:${profile.email}`}>Email me</a>
+        <a class="btn btn--light" href={profile.linkedin} rel="noopener">LinkedIn</a>
+      </div>
+      <p class="loc">
+        <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M12 22s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12z" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="10" r="2.5" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+        {profile.location}
+      </p>
+    </div>
+
+    <div class="visual" aria-hidden="true">
+      <div class="avatar">
+        {photo ? <img src={photo} alt="" width="120" height="120" /> : <span>JA</span>}
+      </div>
+      <div class="panel">
+        <div class="panel-top">
+          <span></span><span></span><span></span>
+          <code>platform.yml</code>
+        </div>
+        <ul class="layers">
+          <li><b class="l-src">Sources</b><em>APIs, ERP, SharePoint, Excel</em></li>
+          <li><b class="l-bronze">Bronze</b><em>raw, source-specific</em></li>
+          <li><b class="l-silver">Silver</b><em>cleaned, business rules</em></li>
+          <li><b class="l-gold">Gold</b><em>facts and conformed dimensions</em></li>
+          <li><b class="l-bi">Power BI</b><em>Direct Lake, RLS, apps</em></li>
+        </ul>
+        <div class="panel-foot">
+          <code>DEV</code><i></i><code>QA</code><i></i><code>PROD</code>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <ul class="stack" aria-label="Core stack">
+      {stack.map((s) => <li>{s}</li>)}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    overflow: hidden;
+    background: radial-gradient(1200px 600px at 85% -10%, #1d4f7a 0%, transparent 60%),
+      radial-gradient(800px 500px at -10% 110%, #0b5d6b 0%, transparent 55%), #0b1628;
+    color: #e8eef7;
+    padding: 88px 0 40px;
+  }
+  .grid-bg {
+    position: absolute;
+    inset: 0;
+    background-image: linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+    background-size: 44px 44px;
+    mask-image: linear-gradient(180deg, #000 30%, transparent 95%);
+  }
+  .inner {
+    position: relative;
+    display: grid;
+    gap: 48px;
+    align-items: center;
+  }
+  @media (min-width: 960px) {
+    .inner {
+      grid-template-columns: 1.25fr 1fr;
+    }
+  }
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 14px;
+    border-radius: 999px;
+    background: rgba(60, 196, 214, 0.12);
+    border: 1px solid rgba(60, 196, 214, 0.35);
+    color: #9fe6ef;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 22px;
+  }
+  .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #3fd68f;
+    box-shadow: 0 0 0 4px rgba(63, 214, 143, 0.2);
+  }
+  h1 {
+    color: #ffffff;
+    margin-bottom: 8px;
+  }
+  .title {
+    font-size: clamp(1.2rem, 2.4vw, 1.55rem);
+    font-weight: 600;
+    color: #6ad6e4;
+    margin-bottom: 18px;
+  }
+  .tagline {
+    font-size: 1.12rem;
+    color: #c2cfe0;
+    max-width: 600px;
+    margin-bottom: 30px;
+  }
+  .ctas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+  .hero .btn--primary {
+    background: #3cc4d6;
+    color: #06202a;
+  }
+  .hero .btn--primary:hover {
+    background: #6ad6e4;
+    color: #06202a;
+  }
+  .btn--light {
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    color: #e8eef7;
+    background: rgba(255, 255, 255, 0.04);
+  }
+  .btn--light:hover {
+    border-color: #6ad6e4;
+    color: #ffffff;
+  }
+  .loc {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #9fb0c7;
+    font-size: 0.92rem;
+    margin: 0;
+  }
+  .visual {
+    position: relative;
+    max-width: 440px;
+    width: 100%;
+    justify-self: center;
+  }
+  .avatar {
+    position: absolute;
+    top: -34px;
+    right: -10px;
+    z-index: 2;
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    border: 4px solid #0b1628;
+    background: linear-gradient(135deg, #3cc4d6, #1f4f8a);
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  }
+  .avatar span {
+    font-weight: 800;
+    font-size: 1.8rem;
+    color: #fff;
+  }
+  .avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .panel {
+    background: rgba(13, 27, 46, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.35);
+    overflow: hidden;
+  }
+  .panel-top {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 12px 16px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  .panel-top span {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #33475f;
+  }
+  .panel-top code {
+    margin-left: 10px;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: #8ea3bd;
+  }
+  .layers {
+    list-style: none;
+    margin: 0;
+    padding: 18px;
+    display: grid;
+    gap: 10px;
+  }
+  .layers li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 12px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.035);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+  }
+  .layers b {
+    flex: 0 0 82px;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    font-weight: 600;
+    padding: 3px 8px;
+    border-radius: 6px;
+    text-align: center;
+  }
+  .layers em {
+    font-style: normal;
+    font-size: 0.88rem;
+    color: #c2cfe0;
+  }
+  .l-src { background: #24384f; color: #c7d3e3; }
+  .l-bronze { background: #4a2e1c; color: #f0b98a; }
+  .l-silver { background: #39434f; color: #dde4ec; }
+  .l-gold { background: #4a3d12; color: #f3d36b; }
+  .l-bi { background: #123f47; color: #7fe0ec; }
+  .panel-foot {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 18px 16px;
+  }
+  .panel-foot code {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    padding: 3px 9px;
+    border-radius: 6px;
+    background: rgba(63, 214, 143, 0.12);
+    color: #7fe3b2;
+    border: 1px solid rgba(63, 214, 143, 0.3);
+  }
+  .panel-foot i {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(63, 214, 143, 0.5), rgba(60, 196, 214, 0.5));
+  }
+  .stack {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 24px;
+    list-style: none;
+    margin: 56px 0 0;
+    padding: 22px 0 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    color: #8ea3bd;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+  }
+</style>

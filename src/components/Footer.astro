@@ -1,0 +1,47 @@
+---
+import { profile } from '../data/site.js';
+const year = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="container row">
+    <p>&copy; {year} {profile.name}. Built with Astro and deployed with GitHub Actions.</p>
+    <ul class="links">
+      <li><a href={`mailto:${profile.email}`}>Email</a></li>
+      <li><a href={profile.linkedin} rel="noopener">LinkedIn</a></li>
+      <li><a href={profile.github} rel="noopener">GitHub</a></li>
+    </ul>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    background: var(--navy);
+    color: #c7d3e3;
+    padding: 28px 0;
+    font-size: 0.9rem;
+  }
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  p {
+    margin: 0;
+  }
+  .links {
+    display: flex;
+    gap: 20px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  a {
+    color: #e8eef7;
+  }
+  a:hover {
+    color: #6ad6e4;
+  }
+</style>

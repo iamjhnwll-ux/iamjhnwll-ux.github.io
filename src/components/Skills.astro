@@ -1,0 +1,50 @@
+---
+import { skills } from '../data/site.js';
+---
+
+<section id="skills" class="section section--alt">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Tools and skills</span>
+      <h2>The stack I work with</h2>
+      <p>Microsoft-first, cloud-native and version-controlled, from ingestion to the final report.</p>
+    </div>
+    <div class="grid">
+      {
+        skills.map((g) => (
+          <div class="group">
+            <h3>{g.group}</h3>
+            <ul class="chips">
+              {g.items.map((i) => (
+                <li class="chip">{i}</li>
+              ))}
+            </ul>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .grid {
+    display: grid;
+    gap: 32px 40px;
+  }
+  @media (min-width: 860px) {
+    .grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  h3 {
+    font-size: 0.82rem;
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    margin-bottom: 14px;
+  }
+  .chip {
+    white-space: normal;
+  }
+</style>

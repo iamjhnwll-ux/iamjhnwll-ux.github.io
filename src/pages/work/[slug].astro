@@ -1,0 +1,222 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+
+export async function getStaticPaths() {
+  const work = (await getCollection('work')).sort((a, b) => a.data.order - b.data.order);
+  return work.map((entry, i) => ({
+    params: { slug: entry.id },
+    props: { entry, next: work[(i + 1) % work.length] },
+  }));
+}
+
+const { entry, next } = Astro.props;
+const { Content } = await render(entry);
+const d = entry.data;
+---
+
+<Base title={`${d.title} | John Well Arellano`} description={d.summary}>
+  <article>
+    <header class="head">
+      <div class="container">
+        <a class="back" href="/#work">&larr; All work</a>
+        <span class="eyebrow">{d.area}</span>
+        <h1>{d.title}</h1>
+        <p class="summary">{d.summary}</p>
+        <p class="meta">{d.org} · {d.period}</p>
+      </div>
+    </header>
+
+    <div class="container">
+      <ul class="outcomes">
+        {
+          d.outcomes.map((o) => (
+            <li class="card">
+              <strong>{o.value}</strong>
+              <span>{o.label}</span>
+            </li>
+          ))
+        }
+      </ul>
+
+      <section class="flow-wrap" aria-label="Solution flow">
+        <span class="eyebrow">Solution flow</span>
+        <ol class="flow">
+          {d.flow.map((f) => <li>{f}</li>)}
+        </ol>
+      </section>
+
+      <div class="body">
+        <div class="prose">
+          <Content />
+        </div>
+        <aside class="card tools">
+          <span class="eyebrow">Tools used</span>
+          <ul class="chips">
+            {d.tools.map((t) => <li class="chip">{t}</li>)}
+          </ul>
+        </aside>
+      </div>
+
+      <nav class="next" aria-label="Next case study">
+        <a class="card" href={`/work/${next.id}/`}>
+          <span>Next case study</span>
+          <strong>{next.data.title} &rarr;</strong>
+        </a>
+      </nav>
+    </div>
+  </article>
+</Base>
+
+<style>
+  .head {
+    background: radial-gradient(900px 400px at 90% -20%, #1d4f7a 0%, transparent 60%), #0b1628;
+    color: #e8eef7;
+    padding: 56px 0 64px;
+  }
+  .back {
+    display: inline-block;
+    color: #9fb0c7;
+    text-decoration: none;
+    font-size: 0.9rem;
+    margin-bottom: 24px;
+  }
+  .back:hover {
+    color: #ffffff;
+  }
+  .head .eyebrow {
+    color: #6ad6e4;
+    display: block;
+  }
+  .head h1 {
+    color: #ffffff;
+    font-size: clamp(1.9rem, 4.2vw, 2.9rem);
+    max-width: 860px;
+  }
+  .summary {
+    font-size: 1.12rem;
+    color: #c2cfe0;
+    max-width: 760px;
+  }
+  .meta {
+    color: #8ea3bd;
+    font-size: 0.92rem;
+    margin: 0;
+  }
+  .outcomes {
+    list-style: none;
+    margin: -32px 0 0;
+    padding: 0;
+    display: grid;
+    gap: 16px;
+    position: relative;
+  }
+  @media (min-width: 720px) {
+    .outcomes {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+  .outcomes li {
+    padding: 20px 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .outcomes strong {
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: var(--accent);
+    letter-spacing: -0.02em;
+  }
+  .outcomes span {
+    color: var(--muted);
+    font-size: 0.9rem;
+    line-height: 1.45;
+  }
+  .flow-wrap {
+    margin: 48px 0 8px;
+  }
+  .flow {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+  }
+  .flow li {
+    padding: 10px 14px;
+    border-radius: 10px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+  .flow li:not(:last-child)::after {
+    content: '\2192';
+    margin-left: 14px;
+    color: var(--muted);
+  }
+  .body {
+    display: grid;
+    gap: 32px;
+    margin: 40px 0 56px;
+  }
+  @media (min-width: 960px) {
+    .body {
+      grid-template-columns: minmax(0, 1fr) 300px;
+      align-items: start;
+    }
+    .tools {
+      position: sticky;
+      top: 88px;
+    }
+  }
+  .prose {
+    max-width: 720px;
+    font-size: 1.04rem;
+  }
+  .prose :global(h2) {
+    font-size: 1.35rem;
+    margin-top: 1.8em;
+  }
+  .prose :global(h2:first-child) {
+    margin-top: 0;
+  }
+  .prose :global(ul) {
+    padding-left: 1.2em;
+  }
+  .prose :global(li) {
+    margin-bottom: 0.4em;
+  }
+  .prose :global(p),
+  .prose :global(li) {
+    color: var(--text);
+  }
+  .tools {
+    padding: 22px;
+  }
+  .tools .chip {
+    white-space: normal;
+  }
+  .next {
+    margin-bottom: 72px;
+  }
+  .next a {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 22px 26px;
+    text-decoration: none;
+    color: var(--text);
+  }
+  .next a:hover {
+    border-color: var(--accent);
+  }
+  .next span {
+    font-size: 0.85rem;
+    color: var(--muted);
+  }
+</style>
