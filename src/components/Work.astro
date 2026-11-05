@@ -149,6 +149,25 @@ const work = (await getCollection('work')).sort((a, b) => a.data.order - b.data.
     color: #d9d2cf;
     font-size: 0.95rem;
   }
+  @media (min-width: 1020px) {
+    .cta-card {
+      grid-column: 1 / -1;
+      min-height: 0;
+    }
+    .cta-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 28px;
+    }
+    .cta-inner h3,
+    .cta-inner p {
+      margin: 0;
+    }
+    .cta-inner p {
+      max-width: 460px;
+    }
+  }
   .cta-card .btn {
     background: #ffffff;
     color: var(--text);
