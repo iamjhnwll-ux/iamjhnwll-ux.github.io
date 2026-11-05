@@ -1,5 +1,5 @@
 ---
-import { profile } from '../data/site.js';
+import { profile, availability } from '../data/site.js';
 
 // Set to '/profile.jpg' once a photo is added to public/.
 const photo = null;
@@ -8,16 +8,22 @@ const photo = null;
 <section class="hero">
   <div class="glow" aria-hidden="true"></div>
   <div class="container inner">
-    <span class="pill"><span class="dot" aria-hidden="true"></span>Open to part-time and contract work</span>
+    <span class="pill"><span class="dot" aria-hidden="true"></span>Open to new opportunities</span>
     <h1>
-      John Well Arellano. Data Engineer building <em class="grad">governed data platforms</em> on Microsoft Fabric.
+      John Well Arellano. Data Engineer building <span class="hl">governed data platforms</span> on Microsoft Fabric.
     </h1>
     <p class="lead">{profile.tagline}</p>
     <div class="ctas">
       <a class="btn btn--primary" href={`mailto:${profile.email}`}>Get in touch <span aria-hidden="true">&nearr;</span></a>
-      <a class="btn btn--ghost" href="#work">See my work <span aria-hidden="true">&rsaquo;</span></a>
+      <a class="btn btn--ghost" href="#impact">See my impact <span aria-hidden="true">&darr;</span></a>
     </div>
-    <p class="loc">{profile.location}</p>
+    <ul class="avail" aria-label="Availability">
+      {availability.map((a) => <li>{a}</li>)}
+    </ul>
+    <p class="proof">
+      Currently leading architecture and ingestion-pattern design for Project Harvest, a seven-source Microsoft Fabric
+      programme for an Australian retailer.
+    </p>
     {
       photo && (
         <img class="photo" src={photo} alt={`Portrait of ${profile.name}`} width="140" height="140" />
@@ -31,16 +37,16 @@ const photo = null;
     position: relative;
     overflow: hidden;
     margin-top: -72px;
-    padding: 150px 0 64px;
+    padding: 150px 0 56px;
     text-align: center;
   }
   .glow {
     position: absolute;
     inset: 0;
     background:
-      radial-gradient(620px 360px at 12% 18%, rgba(196, 181, 253, 0.45), transparent 70%),
-      radial-gradient(760px 420px at 88% 8%, rgba(253, 186, 160, 0.55), transparent 70%),
-      radial-gradient(700px 360px at 50% 0%, rgba(251, 207, 232, 0.6), transparent 72%);
+      radial-gradient(620px 360px at 12% 18%, rgba(165, 180, 252, 0.4), transparent 70%),
+      radial-gradient(760px 420px at 88% 8%, rgba(253, 186, 160, 0.42), transparent 70%),
+      radial-gradient(700px 360px at 50% 0%, rgba(203, 213, 245, 0.6), transparent 72%);
     mask-image: linear-gradient(180deg, #000 55%, transparent 100%);
     pointer-events: none;
   }
@@ -55,11 +61,11 @@ const photo = null;
     align-items: center;
     gap: 8px;
     padding: 6px 14px;
-    border-radius: 999px;
-    background: rgba(255, 255, 255, 0.85);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.9);
     border: 1px solid var(--border);
     font-size: 0.82rem;
-    font-weight: 700;
+    font-weight: 600;
     margin-bottom: 26px;
   }
   .dot {
@@ -69,26 +75,43 @@ const photo = null;
     background: #22c55e;
   }
   h1 {
-    max-width: 920px;
+    max-width: 940px;
     margin: 0 auto 22px;
-    font-size: clamp(2.3rem, 5.4vw, 3.9rem);
   }
   .lead {
-    max-width: 640px;
+    max-width: 660px;
     font-size: 1.1rem;
     color: #3a3533;
-    margin: 0 auto 30px;
+    margin: 0 auto 28px;
   }
   .ctas {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     gap: 12px;
-    margin-bottom: 20px;
+    margin-bottom: 26px;
   }
-  .loc {
+  .avail {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    list-style: none;
+    margin: 0 0 18px;
+    padding: 0;
+  }
+  .avail li {
+    padding: 4px 12px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.85);
+    border: 1px solid var(--border);
+    font-size: 0.82rem;
+    font-weight: 600;
+  }
+  .proof {
+    max-width: 620px;
     color: var(--muted);
-    font-size: 0.9rem;
+    font-size: 0.92rem;
     margin: 0;
   }
   .photo {

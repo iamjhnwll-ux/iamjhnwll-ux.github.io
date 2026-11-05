@@ -14,6 +14,7 @@ import SectionHead from './SectionHead.astro';
               <strong>{e.org}</strong>
               <span class="role">{e.role}</span>
               <span class="period">{e.period}</span>
+              <p class="text">{e.text}</p>
             </li>
           ))
         }
@@ -94,7 +95,7 @@ import SectionHead from './SectionHead.astro';
     box-shadow: 0 0 0 5px #ffe3e6;
   }
   .timeline strong {
-    font-family: var(--font-serif);
+    font-family: var(--font-head);
     font-size: 1.1rem;
   }
   .role,
@@ -102,6 +103,12 @@ import SectionHead from './SectionHead.astro';
     font-size: 0.88rem;
     color: var(--muted);
     line-height: 1.45;
+  }
+  .text {
+    margin: 6px 0 0;
+    font-size: 0.92rem;
+    color: #3a3533;
+    line-height: 1.55;
   }
   .side {
     display: grid;
@@ -123,9 +130,8 @@ import SectionHead from './SectionHead.astro';
     color: var(--muted);
   }
   .all {
-    font-family: var(--font-serif);
-    font-style: italic;
-    font-size: 1rem;
+    font-weight: 600;
+    font-size: 0.95rem;
     color: var(--text);
   }
   .edu {

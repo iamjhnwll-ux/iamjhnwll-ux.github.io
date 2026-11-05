@@ -1,13 +1,31 @@
 ---
-import { skills } from '../data/site.js';
+import { skills, coreStack } from '../data/site.js';
 import SectionHead from './SectionHead.astro';
 
-const dots = ['#6366f1', '#f43f5e', '#10b981', '#f59e0b', '#06b6d4', '#8b5cf6', '#ec4659'];
+const dots = ['#6366f1', '#f43f5e', '#10b981', '#f59e0b', '#06b6d4', '#8b5cf6', '#d92d43'];
 ---
 
 <section id="skills" class="section">
   <div class="container">
-    <SectionHead title="Tools and skills" />
+    <SectionHead
+      title="Skills and tech stack"
+      intro="The core stack I deliver with, and the wider toolset behind it."
+    />
+
+    <ul class="core">
+      {
+        coreStack.map((t) => (
+          <li>
+            <span class="mark" style={`background:${t.color}`} aria-hidden="true">{t.mark}</span>
+            <div>
+              <strong>{t.name}</strong>
+              <span>{t.note}</span>
+            </div>
+          </li>
+        ))
+      }
+    </ul>
+
     <div class="grid">
       {
         skills.map((g, i) => (
@@ -29,6 +47,58 @@ const dots = ['#6366f1', '#f43f5e', '#10b981', '#f59e0b', '#06b6d4', '#8b5cf6', 
 </section>
 
 <style>
+  .core {
+    display: grid;
+    gap: 12px;
+    list-style: none;
+    margin: 0 0 28px;
+    padding: 0;
+    grid-template-columns: minmax(0, 1fr);
+  }
+  @media (min-width: 640px) {
+    .core {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  @media (min-width: 1000px) {
+    .core {
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+    }
+  }
+  .core li {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 16px;
+    border-radius: 16px;
+    background: #ffffff;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+  }
+  .mark {
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    color: #ffffff;
+    font-family: var(--font-head);
+    font-weight: 700;
+    font-size: 0.85rem;
+  }
+  .core strong {
+    display: block;
+    font-family: var(--font-head);
+    font-size: 0.98rem;
+    line-height: 1.25;
+    margin-bottom: 4px;
+  }
+  .core span:not(.mark) {
+    display: block;
+    font-size: 0.82rem;
+    color: var(--muted);
+    line-height: 1.4;
+  }
   .grid {
     display: grid;
     gap: 16px;
@@ -43,7 +113,7 @@ const dots = ['#6366f1', '#f43f5e', '#10b981', '#f59e0b', '#06b6d4', '#8b5cf6', 
     display: flex;
     align-items: center;
     gap: 10px;
-    font-size: 1.1rem;
+    font-size: 1.05rem;
     margin-bottom: 14px;
   }
   .dot {

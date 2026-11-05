@@ -13,13 +13,66 @@ export const profile = {
   certsUrl: 'https://www.linkedin.com/in/johnwellarellano/details/certifications/',
 };
 
+export const availability = ['Part-time', 'Contract', 'Direct hire', 'Remote', 'Philippines (UTC+8)'];
+
+// status: Delivered = reported as achieved on the CV; Estimate = business-case estimate; Projected = programme projection.
 export const impact = [
-  { value: '6+', label: 'years in data and operations' },
+  { value: 'AU$2M', label: 'projected ROI for the Project Harvest programme', status: 'Projected' },
+  { value: 'AU$150K', label: 'projected annual savings from the same programme', status: 'Projected' },
+  { value: '$25K', label: 'saved by replacing a vendor CRM reporting module with in-house Power BI', status: 'Delivered' },
+  { value: '92%', label: 'less time: a recurring 4-hour process cut to under 20 minutes', status: 'Delivered' },
+  { value: '2.5 h/wk', label: 'saved in report schedule administration', status: 'Estimate' },
+  { value: '30,000+', label: 'investment records migrated with zero data loss', status: 'Delivered' },
+];
+
+export const scale = [
+  { value: '7', label: 'source systems in one platform' },
+  { value: '3', label: 'environments: DEV, QA, PROD' },
   { value: '28', label: 'releases in 10 weeks' },
-  { value: '95', label: 'reports and semantic models built' },
-  { value: '92%', label: 'less time on a recurring process' },
-  { value: '$25K', label: 'saved replacing a vendor module' },
-  { value: '30,000+', label: 'records migrated, zero loss' },
+  { value: '95', label: 'reporting assets: 71 paginated reports, 18 Power BI reports, 6 semantic models' },
+  { value: '6+', label: 'years in data and operations' },
+];
+
+export const ownership = [
+  'Architecture and ingestion-pattern design for a seven-source programme',
+  'Source-specific Bronze and Silver layers, one unified Gold Warehouse',
+  'Facts and conformed dimensions in PySpark, Spark SQL and T-SQL',
+  'Direct Lake semantic models, DAX, Power BI and paginated reports',
+  'Dynamic row-level security and governed app distribution',
+  'CI/CD with GitHub Actions and fabric-cicd, with PROD approval control',
+  'Contract tests, refresh runbooks and documentation for handover',
+  'Metadata catalogue and unified report scheduler automation',
+];
+
+export const modelling = {
+  pillars: [
+    {
+      title: 'Conceptual to physical',
+      text: 'Conceptual, logical and physical data models, so the business definition, the design and the build all line up.',
+    },
+    {
+      title: 'Dimensional design',
+      text: 'Conformed dimensions and slowly changing dimensions, plus star and snowflake schemas with DAX for ROI, valuation trends and time intelligence in a real estate investment model.',
+    },
+    {
+      title: 'Shared business definitions',
+      text: 'A unified Gold layer of facts and conformed dimensions, built in PySpark, Spark SQL and T-SQL, and served through Direct Lake semantic models.',
+    },
+  ],
+  domains: ['Inventory valuation', 'Stock-take variance', 'Picking', 'Operations benchmarks', 'Support-ticket queues', 'Product costing'],
+};
+
+export const coreStack = [
+  { name: 'Microsoft Fabric', note: 'OneLake, Lakehouse, Warehouse, pipelines, notebooks', mark: 'Fa', color: '#2563eb' },
+  { name: 'Power BI', note: 'Semantic models, DAX, RLS, paginated reports', mark: 'PB', color: '#a16207' },
+  { name: 'PySpark', note: 'Transformations and Gold-layer modelling', mark: 'Py', color: '#c2410c' },
+  { name: 'SQL and T-SQL', note: 'Spark SQL and Warehouse modelling', mark: 'SQL', color: '#0f766e' },
+  { name: 'dbt', note: 'Analytics engineering', mark: 'dbt', color: '#9a3412' },
+  { name: 'Microsoft Azure', note: 'Azure Data Lake Storage', mark: 'Az', color: '#0369a1' },
+  { name: 'Git and GitHub Actions', note: 'Version control and CI/CD with fabric-cicd', mark: 'Gh', color: '#1f2937' },
+  { name: 'Databricks', note: 'Lakehouse ingestion and Delta Lake', mark: 'Db', color: '#dc2626' },
+  { name: 'Power Automate', note: 'ETL/ELT automation', mark: 'PA', color: '#7c3aed' },
+  { name: 'SharePoint and Excel', note: 'Source ingestion, Power Query and VBA automation', mark: 'Xl', color: '#15803d' },
 ];
 
 export const services = [
@@ -112,14 +165,14 @@ export const experience = [
     org: 'Emapta Global',
     detail: 'Remote',
     period: 'Jul 2025 to Oct 2025',
-    text: 'Built a Microsoft Fabric client-notification pipeline and Fabric dashboards from Excel and ERP logistics and energy data.',
+    text: 'Built a Microsoft Fabric client-notification pipeline and Fabric dashboards from Excel and ERP logistics and energy data; diagnosed faulty EDI pipeline configurations to restore daily data exchange.',
   },
   {
     role: 'Workforce and Operations Analyst (Interim)',
     org: 'Axos Business Center',
     detail: 'Digital bank, Clark City, Philippines',
     period: 'Aug 2024 to Jul 2025',
-    text: 'Built a compliance data model and rules engine, a real-time KPI dashboard and automated reporting with Power Query, VBA and Python.',
+    text: 'Built a promotion-eligibility compliance data model and rules engine using PCI-DSS and NIST criteria, a real-time KPI dashboard and automated reporting with Power Query, VBA and Python.',
   },
   {
     role: 'Data Consultant',
@@ -152,3 +205,10 @@ export const education = {
   school: 'Tarlac State University',
   period: '2018 to 2022',
 };
+
+export const offers = [
+  { title: 'Microsoft Fabric setup', text: 'Lakehouse, Warehouse and pipelines designed around your sources, with DEV, QA and PROD environments.' },
+  { title: 'Power BI reporting', text: 'Dimensional models, DAX and row-level security, so each team sees the data meant for them.' },
+  { title: 'Automation of manual reporting', text: 'Excel, SharePoint and API data brought together with Power Query, Power Automate and Python.' },
+  { title: 'Data migration', text: 'Profiling, source-to-target mapping, cutover planning and integrity checks.' },
+];

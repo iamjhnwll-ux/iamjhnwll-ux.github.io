@@ -1,16 +1,32 @@
 ---
-import { profile } from '../data/site.js';
+import { profile, offers, availability } from '../data/site.js';
+import SectionHead from './SectionHead.astro';
 ---
 
 <section id="contact" class="contact">
   <div class="container">
+    <SectionHead
+      title="How I can help your business"
+      intro="Open to part-time, contract and direct-hire work, including remote work with Australian and global teams."
+    />
+    <div class="grid">
+      {
+        offers.map((o) => (
+          <div class="offer">
+            <h3>{o.title}</h3>
+            <p>{o.text}</p>
+          </div>
+        ))
+      }
+    </div>
+
     <div class="band">
       <div class="glow" aria-hidden="true"></div>
-      <h2>Have a data problem in <em class="grad">mind?</em></h2>
-      <p>
-        I am open to part-time, contract and direct-hire work with small and medium businesses.
-        Send a short note about your sources and goals.
-      </p>
+      <h2>Have a data problem in <span class="hl">mind?</span></h2>
+      <p>Send a short note about your sources and goals.</p>
+      <ul class="avail" aria-label="Availability">
+        {availability.map((a) => <li>{a}</li>)}
+      </ul>
       <div class="buttons">
         <a class="btn btn--primary" href={`mailto:${profile.email}`}>{profile.email} <span aria-hidden="true">&nearr;</span></a>
         <a class="btn btn--ghost" href={profile.linkedin} rel="noopener">Message on LinkedIn <span aria-hidden="true">&rsaquo;</span></a>
@@ -21,40 +37,81 @@ import { profile } from '../data/site.js';
 
 <style>
   .contact {
-    padding: 24px 0 72px;
+    padding: 40px 0 72px;
+  }
+  .grid {
+    display: grid;
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+  @media (min-width: 640px) {
+    .grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  @media (min-width: 1000px) {
+    .grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+  .offer {
+    padding: 22px;
+    border-radius: var(--radius);
+    background: var(--frame);
+  }
+  .offer h3 {
+    font-size: 1.05rem;
+  }
+  .offer p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 0.92rem;
   }
   .band {
     position: relative;
     overflow: hidden;
     text-align: center;
-    padding: 56px 24px;
-    border-radius: 36px;
+    padding: 52px 24px;
+    border-radius: 24px;
     background: var(--frame);
   }
   .glow {
     position: absolute;
     inset: 0;
     background:
-      radial-gradient(420px 240px at 12% 10%, rgba(196, 181, 253, 0.45), transparent 70%),
-      radial-gradient(480px 260px at 90% 90%, rgba(253, 186, 160, 0.55), transparent 70%);
+      radial-gradient(420px 240px at 12% 10%, rgba(165, 180, 252, 0.4), transparent 70%),
+      radial-gradient(480px 260px at 90% 90%, rgba(253, 186, 160, 0.4), transparent 70%);
     pointer-events: none;
   }
-  h2,
-  p,
-  .buttons {
+  .band > :not(.glow) {
     position: relative;
   }
   h2 {
-    font-size: clamp(1.9rem, 4.4vw, 2.9rem);
-    font-weight: 400;
-    letter-spacing: -0.03em;
+    font-size: clamp(1.8rem, 4.2vw, 2.7rem);
     max-width: 700px;
-    margin: 0 auto 14px;
+    margin: 0 auto 12px;
   }
-  p {
+  .band p {
     color: #3a3533;
     max-width: 540px;
-    margin: 0 auto 26px;
+    margin: 0 auto 18px;
+  }
+  .avail {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    list-style: none;
+    margin: 0 0 24px;
+    padding: 0;
+  }
+  .avail li {
+    padding: 4px 12px;
+    border-radius: 8px;
+    background: #ffffff;
+    border: 1px solid var(--border);
+    font-size: 0.82rem;
+    font-weight: 600;
   }
   .buttons {
     display: flex;

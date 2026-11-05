@@ -1,13 +1,12 @@
 ---
-const { title, id, linkHref, linkLabel, light = false } = Astro.props;
+const { title, id, linkHref, linkLabel, light = false, intro } = Astro.props;
 ---
 
 <div class={`head ${light ? 'light' : ''}`}>
-  <div>
+  <div class="text">
     <h2 id={id}>{title}</h2>
-    <svg class="squiggle" viewBox="0 0 60 12" width="56" height="11" aria-hidden="true">
-      <path d="M2 8 L10 3 L18 8 L26 3 L34 8 L42 3 L50 8 L58 3" fill="none" stroke="#f7c948" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" />
-    </svg>
+    <span class="bar" aria-hidden="true"></span>
+    {intro && <p class="intro">{intro}</p>}
   </div>
   {linkHref && <a class="all" href={linkHref}>{linkLabel}</a>}
 </div>
@@ -20,22 +19,37 @@ const { title, id, linkHref, linkLabel, light = false } = Astro.props;
     gap: 16px;
     margin-bottom: 28px;
   }
-  h2 {
-    margin: 0 0 6px;
+  .text {
+    max-width: 720px;
   }
-  .squiggle {
+  h2 {
+    margin: 0 0 10px;
+  }
+  .bar {
     display: block;
+    width: 44px;
+    height: 4px;
+    border-radius: 2px;
+    background: var(--coral);
+  }
+  .intro {
+    margin: 14px 0 0;
+    color: var(--muted);
+    font-size: 1.02rem;
   }
   .all {
-    font-family: var(--font-serif);
-    font-style: italic;
-    font-size: 1.05rem;
+    font-weight: 600;
+    font-size: 0.95rem;
     color: var(--text);
     text-decoration: underline;
     text-underline-offset: 4px;
   }
   .light h2,
+  .light .intro,
   .light .all {
     color: #ffffff;
+  }
+  .light .bar {
+    background: #ffffff;
   }
 </style>

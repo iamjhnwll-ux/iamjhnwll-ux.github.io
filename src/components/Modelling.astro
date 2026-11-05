@@ -1,0 +1,145 @@
+---
+import { modelling } from '../data/site.js';
+import SectionHead from './SectionHead.astro';
+---
+
+<section id="modelling" class="section">
+  <div class="container">
+    <SectionHead
+      title="Data modelling"
+      intro="Good models are what make reports agree. I design them from the business definition down to the physical build."
+    />
+    <div class="cols">
+      <div class="pillars">
+        {
+          modelling.pillars.map((p, i) => (
+            <article>
+              <span class="num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+              <div>
+                <h3>{p.title}</h3>
+                <p>{p.text}</p>
+              </div>
+            </article>
+          ))
+        }
+      </div>
+
+      <figure class="frame">
+        <svg viewBox="0 0 400 300" role="img" aria-label="Star schema: one fact table connected to four conformed dimensions">
+          <rect width="400" height="300" rx="16" fill="#eef2ff" />
+          <g stroke="#a5b4fc" stroke-width="2.4" stroke-linecap="round">
+            <path d="M200 150 L96 70" />
+            <path d="M200 150 L304 70" />
+            <path d="M200 150 L96 230" />
+            <path d="M200 150 L304 230" />
+          </g>
+          <g>
+            <rect x="52" y="44" width="88" height="52" rx="10" fill="#ffffff" stroke="#c7d2fe" stroke-width="2" />
+            <rect x="260" y="44" width="88" height="52" rx="10" fill="#ffffff" stroke="#c7d2fe" stroke-width="2" />
+            <rect x="52" y="204" width="88" height="52" rx="10" fill="#ffffff" stroke="#c7d2fe" stroke-width="2" />
+            <rect x="260" y="204" width="88" height="52" rx="10" fill="#ffffff" stroke="#c7d2fe" stroke-width="2" />
+          </g>
+          <g fill="#c7d2fe">
+            <rect x="52" y="44" width="88" height="14" rx="7" />
+            <rect x="260" y="44" width="88" height="14" rx="7" />
+            <rect x="52" y="204" width="88" height="14" rx="7" />
+            <rect x="260" y="204" width="88" height="14" rx="7" />
+          </g>
+          <g fill="#e0e7ff">
+            <rect x="62" y="68" width="48" height="6" rx="3" /><rect x="62" y="80" width="64" height="6" rx="3" />
+            <rect x="270" y="68" width="48" height="6" rx="3" /><rect x="270" y="80" width="64" height="6" rx="3" />
+            <rect x="62" y="228" width="48" height="6" rx="3" /><rect x="62" y="240" width="64" height="6" rx="3" />
+            <rect x="270" y="228" width="48" height="6" rx="3" /><rect x="270" y="240" width="64" height="6" rx="3" />
+          </g>
+          <rect x="150" y="116" width="100" height="68" rx="12" fill="#d92d43" />
+          <text x="200" y="146" font-family="Space Grotesk, sans-serif" font-size="16" font-weight="700" text-anchor="middle" fill="#ffffff">Fact</text>
+          <text x="200" y="166" font-family="Inter, sans-serif" font-size="11" font-weight="600" text-anchor="middle" fill="#ffffff">measures</text>
+          <g font-family="Inter, sans-serif" font-size="11" font-weight="700" text-anchor="middle" fill="#312e81">
+            <text x="96" y="35">Dimension</text>
+            <text x="304" y="35">Dimension</text>
+            <text x="96" y="276">Dimension</text>
+            <text x="304" y="276">Dimension</text>
+          </g>
+        </svg>
+        <figcaption>Star schema: one fact table, conformed dimensions shared across reports.</figcaption>
+      </figure>
+    </div>
+
+    <div class="domains">
+      <h3>Gold-layer business domains modelled</h3>
+      <ul class="chips">
+        {modelling.domains.map((d) => <li class="chip">{d}</li>)}
+      </ul>
+    </div>
+  </div>
+</section>
+
+<style>
+  .cols {
+    display: grid;
+    gap: 28px;
+    align-items: center;
+  }
+  @media (min-width: 960px) {
+    .cols {
+      grid-template-columns: 1.1fr 1fr;
+      gap: 48px;
+    }
+  }
+  .pillars {
+    display: grid;
+    gap: 22px;
+  }
+  .pillars article {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+  .num {
+    flex: 0 0 auto;
+    display: grid;
+    place-items: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 10px;
+    background: var(--text);
+    color: #ffffff;
+    font-family: var(--font-head);
+    font-weight: 700;
+    font-size: 0.95rem;
+  }
+  .pillars h3 {
+    margin-bottom: 4px;
+  }
+  .pillars p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 0.97rem;
+  }
+  .frame {
+    margin: 0;
+    padding: 14px;
+    border-radius: 24px;
+    background: var(--frame);
+  }
+  .frame svg {
+    width: 100%;
+    height: auto;
+    border-radius: 16px;
+  }
+  figcaption {
+    padding: 10px 6px 0;
+    font-size: 0.85rem;
+    color: var(--muted);
+  }
+  .domains {
+    margin-top: 36px;
+    padding: 22px 24px;
+    border-radius: var(--radius);
+    background: var(--frame);
+  }
+  .domains h3 {
+    font-size: 1rem;
+    margin-bottom: 12px;
+  }
+</style>

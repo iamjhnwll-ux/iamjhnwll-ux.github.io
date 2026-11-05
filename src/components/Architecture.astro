@@ -1,5 +1,6 @@
 ---
 import SectionHead from './SectionHead.astro';
+import { ownership } from '../data/site.js';
 
 const stages = [
   { key: 'src', name: 'Sources', sub: 'REST APIs, ERP, SharePoint, Excel' },
@@ -15,7 +16,10 @@ const governance = ['Git version control', 'CI/CD DEV to QA to PROD', 'Contract 
 
 <section id="architecture" class="section">
   <div class="container">
-    <SectionHead title="How I build" />
+    <SectionHead
+      title="End-to-end data platform"
+      intro="I own the platform from source to report: architecture, ingestion, modelling, delivery, security and release."
+    />
     <div class="diagram">
       <ol class="flow" aria-label="Data flow from sources to Power BI">
         {
@@ -33,6 +37,17 @@ const governance = ['Git version control', 'CI/CD DEV to QA to PROD', 'Contract 
           {governance.map((g) => <li class="chip">{g}</li>)}
         </ul>
       </div>
+    <h3 class="own-title">What end-to-end ownership looks like</h3>
+    <ul class="own">
+      {
+        ownership.map((o) => (
+          <li>
+            <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#d92d43" /><path d="m7 12.5 3.2 3.2L17 9" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" /></svg>
+            <span>{o}</span>
+          </li>
+        ))
+      }
+    </ul>
     </div>
   </div>
 </section>
@@ -82,7 +97,7 @@ const governance = ['Git version control', 'CI/CD DEV to QA to PROD', 'Contract 
   .s-model { --bg-c: var(--model-bg); --fg-c: var(--model-fg); }
   .s-bi { --bg-c: var(--bi-bg); --fg-c: var(--bi-fg); }
   .stage strong {
-    font-family: var(--font-serif);
+    font-family: var(--font-head);
     font-size: 1rem;
     line-height: 1.25;
   }
@@ -141,5 +156,32 @@ const governance = ['Git version control', 'CI/CD DEV to QA to PROD', 'Contract 
   }
   .gov .chip {
     white-space: normal;
+  }
+  .own-title {
+    margin: 36px 0 16px;
+    font-size: 1.05rem;
+  }
+  .own {
+    display: grid;
+    gap: 12px 28px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  @media (min-width: 760px) {
+    .own {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  .own li {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    font-size: 0.97rem;
+    line-height: 1.5;
+  }
+  .own svg {
+    flex: 0 0 auto;
+    margin-top: 2px;
   }
 </style>

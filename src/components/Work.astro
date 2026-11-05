@@ -9,7 +9,10 @@ const work = (await getCollection('work')).sort((a, b) => a.data.order - b.data.
 
 <section id="work" class="section">
   <div class="container">
-    <SectionHead title="Selected work" />
+    <SectionHead
+      title="Selected work"
+      intro="Each case study covers the goal, the approach, the tools and the result. No client code or data."
+    />
     <div class="grid">
       {
         work.map((w) => (

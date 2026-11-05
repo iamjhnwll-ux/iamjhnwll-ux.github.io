@@ -9,11 +9,10 @@
   --coral: #d92d43;
   --yellow: #f7c948;
   --on-dark: #ffffff;
-  --grad: linear-gradient(90deg, #d6336c 0%, #d9480f 100%);
-  --shadow: 0 1px 2px rgba(60, 30, 20, 0.04), 0 10px 30px rgba(60, 30, 20, 0.06);
-  --radius: 28px;
-  --font-sans: 'Mulish', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-  --font-serif: 'Fraunces', Georgia, 'Times New Roman', serif;
+    --shadow: 0 1px 2px rgba(60, 30, 20, 0.04), 0 10px 30px rgba(60, 30, 20, 0.06);
+  --radius: 20px;
+  --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-head: 'Space Grotesk', 'Inter', system-ui, sans-serif;
   --container: 1120px;
   --gutter: 20px;
 
@@ -92,47 +91,36 @@ a:hover {
 h1,
 h2,
 h3 {
-  font-family: var(--font-serif);
-  font-weight: 600;
-  line-height: 1.12;
-  letter-spacing: -0.02em;
+  font-family: var(--font-head);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.025em;
   margin: 0 0 0.5em;
   color: var(--text);
 }
 
 h1 {
-  font-weight: 400;
-  font-size: clamp(2.5rem, 6.4vw, 4.4rem);
-  letter-spacing: -0.03em;
+  font-size: clamp(2.3rem, 5.4vw, 3.9rem);
+  letter-spacing: -0.035em;
 }
 
 h2 {
-  font-size: clamp(1.5rem, 3vw, 1.95rem);
+  font-size: clamp(1.55rem, 3vw, 2.05rem);
 }
 
 h3 {
-  font-size: 1.2rem;
+  font-size: 1.15rem;
+  letter-spacing: -0.015em;
 }
 
 p {
   margin: 0 0 1em;
 }
 
-em.grad,
-.grad {
-  font-style: italic;
-  font-weight: 400;
-  background: var(--grad);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-
-@supports not (background-clip: text) {
-  em.grad,
-  .grad {
-    color: var(--accent);
-  }
+.hl {
+  font-style: normal;
+  color: var(--coral);
+  background: linear-gradient(transparent 82%, #fbd0d5 82%);
 }
 
 .container {
@@ -186,9 +174,9 @@ em.grad,
   align-items: center;
   justify-content: center;
   gap: 8px;
-  padding: 14px 26px;
-  border-radius: 999px;
-  font-weight: 700;
+  padding: 13px 24px;
+  border-radius: 12px;
+  font-weight: 600;
   font-size: 0.95rem;
   text-decoration: none;
   border: 1.5px solid var(--text);
@@ -236,7 +224,7 @@ em.grad,
   background: var(--text);
   color: var(--on-dark);
   padding: 10px 16px;
-  border-radius: 999px;
+  border-radius: 10px;
 }
 
 .skip-link:focus {

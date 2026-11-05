@@ -1,17 +1,35 @@
 ---
-import { impact } from '../data/site.js';
+import { impact, scale } from '../data/site.js';
 import SectionHead from './SectionHead.astro';
 ---
 
-<section class="impact" aria-labelledby="results-title">
+<section id="impact" class="impact" aria-labelledby="impact-title">
   <div class="container">
-    <SectionHead title="Results at a glance" id="results-title" light />
+    <SectionHead
+      title="Business impact"
+      id="impact-title"
+      intro="Cost and time saved. Each figure is labelled: projected means a programme projection, not a measured result."
+      light
+    />
     <ul class="grid">
       {
         impact.map((i) => (
           <li>
+            <span class={`tag tag--${i.status.toLowerCase()}`}>{i.status}</span>
             <strong>{i.value}</strong>
-            <span>{i.label}</span>
+            <span class="label">{i.label}</span>
+          </li>
+        ))
+      }
+    </ul>
+
+    <h3 class="scale-title">Scale of delivery</h3>
+    <ul class="scale">
+      {
+        scale.map((s) => (
+          <li>
+            <strong>{s.value}</strong>
+            <span>{s.label}</span>
           </li>
         ))
       }
@@ -22,47 +40,112 @@ import SectionHead from './SectionHead.astro';
 <style>
   .impact {
     background: var(--coral);
-    padding: 52px 0 56px;
-    margin: 28px 0;
+    padding: 56px 0 60px;
+    margin: 12px 0 28px;
   }
   .grid {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: minmax(0, 1fr);
     gap: 14px;
     list-style: none;
     margin: 0;
     padding: 0;
   }
-  @media (min-width: 720px) {
+  @media (min-width: 640px) {
     .grid {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
   }
   @media (min-width: 1000px) {
     .grid {
-      grid-template-columns: repeat(6, minmax(0, 1fr));
+      grid-template-columns: repeat(3, minmax(0, 1fr));
     }
   }
-  li {
+  .grid li {
     display: flex;
     flex-direction: column;
-    gap: 6px;
-    padding: 20px 20px 18px;
-    border-radius: 20px;
+    gap: 8px;
+    padding: 22px 22px 20px;
+    border-radius: 16px;
     background: #ffffff;
-    box-shadow: 0 8px 24px rgba(120, 20, 40, 0.18);
+    box-shadow: 0 8px 24px rgba(90, 15, 30, 0.2);
   }
-  strong {
-    font-family: var(--font-serif);
-    font-size: 2rem;
+  .tag {
+    align-self: flex-start;
+    padding: 2px 9px;
+    border-radius: 6px;
+    font-size: 0.72rem;
     font-weight: 700;
-    letter-spacing: -0.03em;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .tag--delivered {
+    background: #dcfce7;
+    color: #14532d;
+  }
+  .tag--estimate {
+    background: #fef3c7;
+    color: #78350f;
+  }
+  .tag--projected {
+    background: #e0e7ff;
+    color: #312e81;
+  }
+  .grid strong {
+    font-family: var(--font-head);
+    font-size: 2.5rem;
+    font-weight: 700;
+    letter-spacing: -0.04em;
     line-height: 1;
     color: var(--text);
   }
-  span {
-    font-size: 0.85rem;
+  .label {
+    font-size: 0.92rem;
     color: var(--muted);
+    line-height: 1.45;
+  }
+  .scale-title {
+    color: #ffffff;
+    font-size: 0.95rem;
+    letter-spacing: 0.02em;
+    margin: 36px 0 14px;
+  }
+  .scale {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  @media (min-width: 720px) {
+    .scale {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+  @media (min-width: 1000px) {
+    .scale {
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+    }
+  }
+  .scale li {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 14px 16px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    background: rgba(0, 0, 0, 0.14);
+    color: #ffffff;
+  }
+  .scale strong {
+    font-family: var(--font-head);
+    font-size: 1.7rem;
+    line-height: 1;
+    letter-spacing: -0.03em;
+  }
+  .scale span {
+    font-size: 0.82rem;
     line-height: 1.4;
   }
 </style>

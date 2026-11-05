@@ -2,9 +2,11 @@
 import { profile } from '../data/site.js';
 
 const links = [
+  { href: '/#impact', label: 'Impact' },
   { href: '/#work', label: 'Work' },
-  { href: '/#architecture', label: 'Architecture' },
-  { href: '/#skills', label: 'Skills' },
+  { href: '/#architecture', label: 'Platform' },
+  { href: '/#modelling', label: 'Modelling' },
+  { href: '/#skills', label: 'Stack' },
   { href: '/#experience', label: 'Experience' },
   { href: '/#contact', label: 'Contact' },
 ];
@@ -85,10 +87,9 @@ const links = [
     height: 72px;
   }
   .brand {
-    font-family: var(--font-serif);
-    font-style: italic;
-    font-weight: 600;
-    font-size: 1.35rem;
+    font-family: var(--font-head);
+    font-weight: 700;
+    font-size: 1.15rem;
     letter-spacing: -0.02em;
     color: var(--text);
     text-decoration: none;
@@ -150,11 +151,11 @@ const links = [
     padding: 12px 0;
     font-size: 1.05rem;
   }
-  @media (min-width: 860px) {
+  @media (min-width: 1060px) {
     .nav,
     .nav.open {
       display: flex;
-      gap: 34px;
+      gap: 26px;
       position: static;
       padding: 0;
       background: none;
