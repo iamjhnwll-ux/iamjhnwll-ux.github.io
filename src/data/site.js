@@ -14,12 +14,12 @@ export const profile = {
 };
 
 export const impact = [
-  { value: '6+', label: 'years across data and operations' },
-  { value: '28', label: 'releases in 10 weeks, DEV to QA to PROD' },
-  { value: '95', label: '71 paginated reports, 18 Power BI reports and 6 semantic models built' },
-  { value: '92%', label: 'less time: a 4-hour process cut to under 20 minutes' },
-  { value: '$25K', label: 'saved by replacing a vendor reporting module' },
-  { value: '30,000+', label: 'records migrated with zero data loss' },
+  { value: '6+', label: 'years in data and operations' },
+  { value: '28', label: 'releases in 10 weeks' },
+  { value: '95', label: 'reports and semantic models built' },
+  { value: '92%', label: 'less time on a recurring process' },
+  { value: '$25K', label: 'saved replacing a vendor module' },
+  { value: '30,000+', label: 'records migrated, zero loss' },
 ];
 
 export const services = [
@@ -152,10 +152,3 @@ export const education = {
   school: 'Tarlac State University',
   period: '2018 to 2022',
 };
-
-export const offers = [
-  { title: 'Microsoft Fabric setup', text: 'Lakehouse, Warehouse and pipelines designed around your sources, with DEV, QA and PROD environments.' },
-  { title: 'Power BI reporting', text: 'Dimensional models, DAX and row-level security, so each team sees the data meant for them.' },
-  { title: 'Automation of manual reporting', text: 'Excel, SharePoint and API data brought together with Power Query, Power Automate and Python.' },
-  { title: 'Data migration', text: 'Profiling, source-to-target mapping, cutover planning and integrity checks.' },
-];

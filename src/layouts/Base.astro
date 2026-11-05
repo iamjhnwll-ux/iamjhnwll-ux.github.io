@@ -6,7 +6,7 @@ import { profile } from '../data/site.js';
 
 const {
   title = `${profile.name} | ${profile.title}`,
-  description = 'Data Engineer specialising in Microsoft Fabric, medallion architecture, dimensional modelling, CI/CD and Power BI. Available for part-time and contract work.',
+  description = 'Data Engineer specialising in Microsoft Fabric, medallion architecture, dimensional modelling, CI/CD and Power BI. Open to part-time and contract work.',
 } = Astro.props;
 
 const canonical = new URL(Astro.url.pathname, Astro.site);
@@ -27,21 +27,13 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta name="twitter:card" content="summary" />
-    <meta name="theme-color" content="#0d1b2e" />
+    <meta name="theme-color" content="#fafaf8" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap"
     />
-    <script is:inline>
-      try {
-        const saved = localStorage.getItem('theme');
-        if (saved === 'light' || saved === 'dark') {
-          document.documentElement.dataset.theme = saved;
-        }
-      } catch (e) {}
-    </script>
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>

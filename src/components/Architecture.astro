@@ -1,211 +1,141 @@
 ---
 const stages = [
-  { key: 'src', name: 'Sources', sub: 'Ingest', items: ['REST APIs', 'ERP and CRM', 'SharePoint', 'Excel and Lists'] },
-  { key: 'bronze', name: 'Bronze', sub: 'Lakehouse', items: ['Raw, as received', 'Source-specific', 'Incremental loads'] },
-  { key: 'silver', name: 'Silver', sub: 'Lakehouse', items: ['Cleaned and typed', 'Source business rules', 'Data quality checks'] },
-  { key: 'gold', name: 'Gold', sub: 'Warehouse', items: ['Facts', 'Conformed dimensions', 'Slowly changing dims'] },
-  { key: 'model', name: 'Semantic', sub: 'Models', items: ['Direct Lake', 'DAX measures', 'Dynamic RLS'] },
-  { key: 'bi', name: 'Delivery', sub: 'Power BI', items: ['Org and workspace apps', 'Paginated reports', 'Scheduled delivery'] },
+  { key: 'src', name: 'Sources', sub: 'REST APIs, ERP, SharePoint, Excel' },
+  { key: 'bronze', name: 'Bronze', sub: 'Lakehouse' },
+  { key: 'silver', name: 'Silver', sub: 'Lakehouse' },
+  { key: 'gold', name: 'Gold', sub: 'Warehouse' },
+  { key: 'model', name: 'Semantic models', sub: 'Direct Lake, DAX, RLS' },
+  { key: 'bi', name: 'Power BI', sub: 'apps' },
 ];
 
-const governance = [
-  'Git version control',
-  'CI/CD: DEV to QA to PROD',
-  'Approval-gated releases',
-  'Semantic-model contract tests',
-  'RLS and RBAC',
-  'Monitoring and runbooks',
-];
-
-const principles = [
-  {
-    title: 'Separate source logic from business logic',
-    text: 'Each source gets its own Bronze and Silver processing. Shared business definitions live once, in a unified Gold Warehouse.',
-  },
-  {
-    title: 'Separate data access from distribution',
-    text: 'Row-level security decides what data a person can see. Apps decide which content they receive. Two controls, each easy to audit.',
-  },
-  {
-    title: 'Everything in Git, promoted by pipeline',
-    text: 'Fabric items are versioned in Git and released through GitHub Actions and fabric-cicd, with an approval step before production.',
-  },
-];
+const governance = ['Git version control', 'CI/CD DEV to QA to PROD', 'Contract tests', 'RLS and RBAC', 'Monitoring'];
 ---
 
-<section id="architecture" class="section section--alt">
+<section id="architecture" class="section">
   <div class="container">
     <div class="section-head">
       <span class="eyebrow">How I build</span>
-      <h2>Medallion architecture, governed end to end</h2>
-      <p>
-        The pattern I use on Microsoft Fabric (and Databricks): raw data lands safely, is cleaned
-        per source, then modelled once for the whole business and served to Power BI.
-      </p>
+      <h2>How I build</h2>
     </div>
 
-    <ol class="flow" aria-label="Data flow from sources to Power BI">
-      {
-        stages.map((s, i) => (
-          <li class={`stage s-${s.key}`}>
-            <div class="stage-head">
-              <span class="num">{String(i + 1).padStart(2, '0')}</span>
-              <div>
-                <strong>{s.name}</strong>
-                <small>{s.sub}</small>
-              </div>
-            </div>
-            <ul>
-              {s.items.map((it) => <li>{it}</li>)}
-            </ul>
-          </li>
-        ))
-      }
-    </ol>
-
-    <div class="gov">
-      <span class="gov-label">Across every layer</span>
-      <ul class="chips">
-        {governance.map((g) => <li class="chip">{g}</li>)}
-      </ul>
-    </div>
-
-    <div class="principles">
-      {
-        principles.map((p) => (
-          <div>
-            <h3>{p.title}</h3>
-            <p>{p.text}</p>
-          </div>
-        ))
-      }
+    <div class="card diagram">
+      <ol class="flow" aria-label="Data flow from sources to Power BI">
+        {
+          stages.map((s) => (
+            <li class={`stage layer--${s.key}`}>
+              <strong>{s.name}</strong>
+              <span>{s.sub}</span>
+            </li>
+          ))
+        }
+      </ol>
+      <div class="gov">
+        <span class="gov-label">Across every layer</span>
+        <ul class="chips">
+          {governance.map((g) => <li class="chip">{g}</li>)}
+        </ul>
+      </div>
     </div>
   </div>
 </section>
 
 <style>
+  .diagram {
+    padding: 20px;
+  }
   .flow {
     list-style: none;
     margin: 0;
     padding: 0;
     display: grid;
-    gap: 14px;
-    counter-reset: none;
+    gap: 22px;
+    grid-template-columns: minmax(0, 1fr);
   }
-  @media (min-width: 640px) {
+  @media (min-width: 560px) {
     .flow {
       grid-template-columns: repeat(3, minmax(0, 1fr));
     }
   }
-  @media (min-width: 1040px) {
+  @media (min-width: 1000px) {
     .flow {
       grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 34px;
     }
   }
   .stage {
     position: relative;
-    background: var(--bg);
-    border: 1px solid var(--border);
-    border-top: 4px solid var(--c);
-    border-radius: 12px;
-    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    min-height: 64px;
+    padding: 10px 12px;
+    border-radius: 10px;
   }
-  @media (min-width: 1040px) {
+  .stage.layer--src {
+    background: var(--src-bg);
+    color: var(--src-fg);
+    border: 1px solid #d6e3ff;
+  }
+  .stage strong {
+    font-size: 0.86rem;
+    line-height: 1.25;
+  }
+  .stage span {
+    font-size: 0.76rem;
+    font-weight: 500;
+    line-height: 1.3;
+  }
+  .stage:not(:last-child)::after {
+    content: '\2193' / '';
+    position: absolute;
+    bottom: -21px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: var(--text);
+    font-weight: 600;
+  }
+  @media (min-width: 560px) {
     .stage:not(:last-child)::after {
-      content: '';
-      position: absolute;
-      right: -12px;
-      top: 30px;
-      width: 10px;
-      height: 10px;
-      border-top: 2px solid var(--muted);
-      border-right: 2px solid var(--muted);
-      transform: rotate(45deg);
-      opacity: 0.6;
+      content: '\2192' / '';
+      bottom: auto;
+      top: 50%;
+      left: auto;
+      right: -11px;
+      transform: translate(50%, -50%);
+    }
+    .stage:nth-child(3)::after {
+      content: none;
     }
   }
-  .s-src { --c: #64748b; }
-  .s-bronze { --c: #b8733b; }
-  .s-silver { --c: #8a99ab; }
-  .s-gold { --c: #d4a72c; }
-  .s-model { --c: #2f7fd1; }
-  .s-bi { --c: #0b9bb0; }
-  .stage-head {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 12px;
-  }
-  .num {
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
-    font-weight: 600;
-    color: var(--muted);
-  }
-  .stage-head strong {
-    display: block;
-    font-size: 1rem;
-    line-height: 1.2;
-  }
-  .stage-head small {
-    color: var(--muted);
-    font-size: 0.8rem;
-  }
-  .stage ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: grid;
-    gap: 6px;
-  }
-  .stage ul li {
-    font-size: 0.85rem;
-    color: var(--muted);
-    padding: 5px 8px;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 6px;
+  @media (min-width: 1000px) {
+    .stage:not(:last-child)::after {
+      right: -17px;
+    }
+    .stage:nth-child(3)::after {
+      content: '\2192' / '';
+    }
   }
   .gov {
     margin-top: 18px;
-    padding: 18px;
-    border: 1px dashed var(--accent);
-    border-radius: 12px;
-    background: var(--accent-soft);
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 12px 18px;
+    padding: 12px 16px 16px;
+    border: 1.5px dashed #cfd6e0;
+    border-radius: 10px;
+    text-align: center;
   }
   .gov-label {
-    font-family: var(--font-mono);
-    font-size: 0.78rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--accent-strong);
+    display: block;
+    font-size: 0.8rem;
+    color: var(--muted);
+    margin-bottom: 10px;
+  }
+  .gov .chips {
+    justify-content: center;
+    gap: 10px;
   }
   .gov .chip {
-    background: var(--surface);
+    background: var(--surface-2);
     white-space: normal;
-  }
-  .principles {
-    margin-top: 48px;
-    display: grid;
-    gap: 28px;
-  }
-  @media (min-width: 860px) {
-    .principles {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
-  }
-  .principles h3 {
-    padding-top: 14px;
-    border-top: 2px solid var(--accent);
-  }
-  .principles p {
-    color: var(--muted);
-    font-size: 0.95rem;
-    margin: 0;
   }
 </style>

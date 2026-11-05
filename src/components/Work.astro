@@ -8,37 +8,33 @@ const work = (await getCollection('work')).sort((a, b) => a.data.order - b.data.
   <div class="container">
     <div class="section-head">
       <span class="eyebrow">Selected work</span>
-      <h2>What I have built</h2>
-      <p>
-        Real projects from my roles, described without client code or data. Each case study covers
-        the problem, the approach, the tools and the result.
-      </p>
+      <h2>Selected work</h2>
     </div>
     <div class="grid">
       {
         work.map((w) => (
-          <a class="card item" href={`/work/${w.id}/`}>
-            <div class="meta">
-              <span class="area">{w.data.area}</span>
-              <span class="org">{w.data.org}</span>
-            </div>
-            <h3>{w.data.title}</h3>
-            <p>{w.data.summary}</p>
+          <article class="card item">
+            <span class="tag">{w.data.area}</span>
+            <h3>
+              <a href={`/work/${w.id}/`}>{w.data.title}</a>
+            </h3>
+            <p class="summary">{w.data.summary}</p>
             {w.data.outcomes[0] && (
-              <div class="result">
-                <strong>{w.data.outcomes[0].value}</strong>
-                <span>{w.data.outcomes[0].label}</span>
-              </div>
+              <p class="result">
+                {w.data.outcomes[0].value} {w.data.outcomes[0].label}
+              </p>
             )}
-            <ul class="chips">
-              {w.data.tools.slice(0, 4).map((t) => (
-                <li class="chip">{t}</li>
-              ))}
-            </ul>
-            <span class="more">
-              Read case study <span aria-hidden="true">&rarr;</span>
-            </span>
-          </a>
+            <div class="foot">
+              <ul class="chips">
+                {w.data.tools.slice(0, 3).map((t) => (
+                  <li class="chip">{t}</li>
+                ))}
+              </ul>
+              <span class="more" aria-hidden="true">
+                Read case study &rarr;
+              </span>
+            </div>
+          </article>
         ))
       }
     </div>
@@ -48,74 +44,76 @@ const work = (await getCollection('work')).sort((a, b) => a.data.order - b.data.
 <style>
   .grid {
     display: grid;
-    gap: 20px;
+    gap: 14px;
   }
-  @media (min-width: 720px) {
+  @media (min-width: 760px) {
     .grid {
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
   }
   .item {
+    position: relative;
     display: flex;
     flex-direction: column;
-    padding: 26px;
-    color: var(--text);
-    text-decoration: none;
-    transition: transform 0.15s ease, border-color 0.15s ease;
+    padding: 16px 18px;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  }
+  .item:focus-within {
+    outline: 3px solid var(--accent);
+    outline-offset: 2px;
   }
   .item:hover {
-    transform: translateY(-2px);
-    border-color: var(--accent);
-    color: var(--text);
+    border-color: #bfd3fb;
+    box-shadow: 0 6px 20px rgba(37, 99, 235, 0.08);
   }
-  .meta {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    gap: 8px;
-    margin-bottom: 12px;
-    font-size: 0.8rem;
-  }
-  .area {
-    font-family: var(--font-mono);
+  .tag {
+    align-self: flex-start;
+    padding: 2px 9px;
+    border-radius: 6px;
+    background: var(--accent-soft);
+    color: var(--accent-strong);
+    font-size: 0.72rem;
     font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    color: var(--accent);
+    margin-bottom: 8px;
   }
-  .org {
-    color: var(--muted);
+  h3 {
+    font-size: 0.98rem;
+    margin-bottom: 4px;
   }
-  .item p {
+  h3 a {
+    color: var(--text);
+    text-decoration: none;
+  }
+  h3 a::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: var(--radius);
+  }
+  .summary {
     color: var(--muted);
-    font-size: 0.95rem;
+    font-size: 0.84rem;
+    line-height: 1.45;
+    margin-bottom: 6px;
   }
   .result {
-    display: flex;
-    align-items: baseline;
-    gap: 10px;
-    padding: 12px 14px;
-    margin-bottom: 16px;
-    border-radius: 10px;
-    background: var(--accent-soft);
-  }
-  .result strong {
-    font-size: 1.3rem;
-    font-weight: 800;
     color: var(--accent);
-    white-space: nowrap;
+    font-weight: 700;
+    font-size: 0.9rem;
+    margin-bottom: 12px;
   }
-  .result span {
-    font-size: 0.88rem;
-    color: var(--text);
-  }
-  .chips {
-    margin-bottom: 18px;
+  .foot {
+    margin-top: auto;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
   }
   .more {
-    margin-top: auto;
-    font-weight: 600;
-    font-size: 0.92rem;
     color: var(--accent);
+    font-weight: 600;
+    font-size: 0.82rem;
+    white-space: nowrap;
   }
 </style>
