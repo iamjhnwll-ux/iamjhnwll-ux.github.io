@@ -1,6 +1,8 @@
 ---
 import { profile, offers, availability } from '../data/site.js';
 import SectionHead from './SectionHead.astro';
+
+const linkedinShort = profile.linkedin.replace('https://www.', '');
 ---
 
 <section id="contact" class="contact">
@@ -20,20 +22,76 @@ import SectionHead from './SectionHead.astro';
       }
     </div>
 
-    <div class="band">
+    <div class="band" id="get-in-touch">
       <div class="glow" aria-hidden="true"></div>
       <h2>Have a data problem in <span class="hl">mind?</span></h2>
-      <p>Send a short note about your sources and goals.</p>
+      <p>Send a short note about your sources and goals, or connect on LinkedIn.</p>
       <ul class="avail" aria-label="Availability">
         {availability.map((a) => <li>{a}</li>)}
       </ul>
-      <div class="buttons">
-        <a class="btn btn--primary" href={`mailto:${profile.email}`}>{profile.email} <span aria-hidden="true">&nearr;</span></a>
-        <a class="btn btn--ghost" href={profile.linkedin} rel="noopener">Message on LinkedIn <span aria-hidden="true">&rsaquo;</span></a>
+
+      <div class="cards">
+        <a class="card li-card" href={profile.linkedin} target="_blank" rel="noopener noreferrer">
+          <span class="li-logo" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z" /></svg>
+          </span>
+          <span class="li-body">
+            <strong>{profile.name}</strong>
+            <span class="li-title">{profile.title}</span>
+            <span class="li-url">{linkedinShort}</span>
+          </span>
+          <span class="li-cta">View profile <span aria-hidden="true">&nearr;</span></span>
+        </a>
+
+        <div class="card mail-card">
+          <span class="mail-label">Email</span>
+          <span class="mail-address" id="email-address">{profile.email}</span>
+          <div class="mail-actions">
+            <button class="btn btn--primary copy" type="button" data-email={profile.email}>
+              <span class="copy-label">Copy email</span>
+            </button>
+            <a class="open-mail" href={`mailto:${profile.email}`}>Open in mail app</a>
+          </div>
+          <span class="status" role="status" aria-live="polite"></span>
+        </div>
       </div>
     </div>
   </div>
 </section>
+
+<script is:inline>
+  (function () {
+    const btn = document.querySelector('.copy');
+    if (!btn) return;
+    const label = btn.querySelector('.copy-label');
+    const status = document.querySelector('.mail-card .status');
+    const email = btn.getAttribute('data-email');
+
+    function done(ok) {
+      label.textContent = ok ? 'Copied' : 'Copy email';
+      status.textContent = ok ? 'Email address copied to clipboard' : 'Press Ctrl+C to copy the selected address';
+      if (!ok) {
+        const range = document.createRange();
+        range.selectNodeContents(document.getElementById('email-address'));
+        const sel = window.getSelection();
+        sel.removeAllRanges();
+        sel.addRange(range);
+      }
+      setTimeout(function () {
+        label.textContent = 'Copy email';
+        status.textContent = '';
+      }, 2500);
+    }
+
+    btn.addEventListener('click', function () {
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(email).then(function () { done(true); }, function () { done(false); });
+      } else {
+        done(false);
+      }
+    });
+  })();
+</script>
 
 <style>
   .contact {
@@ -74,6 +132,7 @@ import SectionHead from './SectionHead.astro';
     padding: 52px 24px;
     border-radius: 24px;
     background: var(--frame);
+    scroll-margin-top: 90px;
   }
   .glow {
     position: absolute;
@@ -91,7 +150,7 @@ import SectionHead from './SectionHead.astro';
     max-width: 700px;
     margin: 0 auto 12px;
   }
-  .band p {
+  .band > p {
     color: #3a3533;
     max-width: 540px;
     margin: 0 auto 18px;
@@ -102,7 +161,7 @@ import SectionHead from './SectionHead.astro';
     justify-content: center;
     gap: 8px;
     list-style: none;
-    margin: 0 0 24px;
+    margin: 0 0 28px;
     padding: 0;
   }
   .avail li {
@@ -113,13 +172,106 @@ import SectionHead from './SectionHead.astro';
     font-size: 0.82rem;
     font-weight: 600;
   }
-  .buttons {
+  .cards {
+    display: grid;
+    gap: 16px;
+    max-width: 820px;
+    margin: 0 auto;
+    text-align: left;
+  }
+  @media (min-width: 760px) {
+    .cards {
+      grid-template-columns: 1.15fr 1fr;
+    }
+  }
+  .card {
+    padding: 20px 22px;
+    border-radius: 18px;
+  }
+  .li-card {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    color: var(--text);
+    text-decoration: none;
+    transition: border-color 0.15s ease, transform 0.15s ease;
+  }
+  .li-card:hover {
+    border-color: #0a66c2;
+    color: var(--text);
+    transform: translateY(-2px);
+  }
+  .li-logo {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    background: #0a66c2;
+    color: #ffffff;
+  }
+  .li-body {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .li-body strong {
+    font-family: var(--font-head);
+    font-size: 1.1rem;
+  }
+  .li-title {
+    font-size: 0.9rem;
+    color: var(--muted);
+  }
+  .li-url {
+    font-size: 0.85rem;
+    color: #0a66c2;
+    overflow-wrap: anywhere;
+  }
+  .li-cta {
+    margin-top: auto;
+    font-weight: 700;
+    font-size: 0.92rem;
+    color: #0a66c2;
+  }
+  .mail-card {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .mail-label {
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .mail-address {
+    font-family: var(--font-head);
+    font-size: 1.2rem;
+    font-weight: 600;
+    overflow-wrap: anywhere;
+    user-select: all;
+  }
+  .mail-actions {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
-    gap: 12px;
+    align-items: center;
+    gap: 14px;
+    margin-top: 6px;
   }
-  .buttons .btn {
-    overflow-wrap: anywhere;
+  .copy {
+    cursor: pointer;
+    font-family: inherit;
+  }
+  .open-mail {
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--text);
+  }
+  .status {
+    min-height: 1.2em;
+    font-size: 0.82rem;
+    color: #166534;
   }
 </style>
