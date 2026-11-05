@@ -5,7 +5,7 @@ export const profile = {
   name: 'John Well Arellano',
   title: 'Data Engineer, Microsoft Fabric',
   tagline:
-    'I design and build governed data platforms: from source ingestion and medallion architecture to dimensional models and Power BI that business teams trust.',
+    'I design and build governed data platforms: from source ingestion and medallion architecture to dimensional models and Power BI reporting.',
   location: 'Philippines, open to remote work with Australian and global teams',
   email: 'iamjhnwll@gmail.com',
   linkedin: 'https://www.linkedin.com/in/johnwellarellano',

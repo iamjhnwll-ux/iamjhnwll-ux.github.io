@@ -1,6 +1,7 @@
 ---
 import { getCollection, render } from 'astro:content';
 import Base from '../../layouts/Base.astro';
+import Illustration from '../../components/Illustration.astro';
 
 export async function getStaticPaths() {
   const work = (await getCollection('work')).sort((a, b) => a.data.order - b.data.order);
@@ -18,9 +19,10 @@ const d = entry.data;
 <Base title={`${d.title} | John Well Arellano`} description={d.summary}>
   <article>
     <header class="head">
-      <div class="container">
+      <div class="glow" aria-hidden="true"></div>
+      <div class="container inner">
         <a class="back" href="/#work">&larr; All work</a>
-        <span class="eyebrow">{d.area}</span>
+        <span class="area">{d.area}</span>
         <h1>{d.title}</h1>
         <p class="summary">{d.summary}</p>
         <p class="meta">{d.org} · {d.period}</p>
@@ -28,10 +30,14 @@ const d = entry.data;
     </header>
 
     <div class="container">
+      <div class="frame">
+        <div class="art"><Illustration slug={entry.id} /></div>
+      </div>
+
       <ul class="outcomes">
         {
           d.outcomes.map((o) => (
-            <li class="card">
+            <li>
               <strong>{o.value}</strong>
               <span>{o.label}</span>
             </li>
@@ -40,7 +46,7 @@ const d = entry.data;
       </ul>
 
       <section class="flow-wrap" aria-label="Solution flow">
-        <span class="eyebrow">Solution flow</span>
+        <h2>Solution flow</h2>
         <ol class="flow">
           {d.flow.map((f) => <li>{f}</li>)}
         </ol>
@@ -50,8 +56,8 @@ const d = entry.data;
         <div class="prose">
           <Content />
         </div>
-        <aside class="card tools">
-          <span class="eyebrow">Tools used</span>
+        <aside class="tools">
+          <h2>Tools used</h2>
           <ul class="chips">
             {d.tools.map((t) => <li class="chip">{t}</li>)}
           </ul>
@@ -59,7 +65,7 @@ const d = entry.data;
       </div>
 
       <nav class="next" aria-label="Next case study">
-        <a class="card" href={`/work/${next.id}/`}>
+        <a href={`/work/${next.id}/`}>
           <span>Next case study</span>
           <strong>{next.data.title} &rarr;</strong>
         </a>
@@ -70,43 +76,77 @@ const d = entry.data;
 
 <style>
   .head {
-    background: radial-gradient(700px 300px at 85% 0%, rgba(37, 99, 235, 0.1), transparent 70%);
-    padding: 40px 0 32px;
+    position: relative;
+    overflow: hidden;
+    margin-top: -72px;
+    padding: 130px 0 40px;
+  }
+  .glow {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(560px 300px at 10% 15%, rgba(196, 181, 253, 0.4), transparent 70%),
+      radial-gradient(640px 340px at 90% 5%, rgba(253, 186, 160, 0.5), transparent 70%);
+    mask-image: linear-gradient(180deg, #000 55%, transparent 100%);
+    pointer-events: none;
+  }
+  .inner {
+    position: relative;
   }
   .back {
     display: inline-block;
     color: var(--muted);
     text-decoration: none;
-    font-size: 0.9rem;
-    margin-bottom: 20px;
+    font-weight: 600;
+    font-size: 0.92rem;
+    margin-bottom: 22px;
   }
   .back:hover {
     color: var(--accent);
   }
-  .head .eyebrow {
+  .area {
     display: block;
+    font-weight: 800;
+    font-size: 0.9rem;
+    color: var(--accent);
+    margin-bottom: 6px;
   }
-  .head h1 {
-    font-size: clamp(1.9rem, 4.2vw, 2.7rem);
-    max-width: 860px;
+  h1 {
+    font-size: clamp(2rem, 4.8vw, 3.2rem);
+    max-width: 880px;
   }
   .summary {
-    font-size: 1.08rem;
-    color: #374151;
+    font-size: 1.12rem;
+    color: #3a3533;
     max-width: 760px;
   }
   .meta {
     color: var(--muted);
-    font-size: 0.9rem;
+    font-size: 0.92rem;
     margin: 0;
+  }
+  .frame {
+    padding: 14px;
+    border-radius: var(--radius);
+    background: var(--frame);
+    max-width: 760px;
+    margin: 0 auto;
+  }
+  .art {
+    border-radius: 18px;
+    overflow: hidden;
+    aspect-ratio: 400 / 260;
+  }
+  .art :global(svg) {
+    width: 100%;
+    height: 100%;
   }
   .outcomes {
     list-style: none;
-    margin: 0;
+    margin: 28px 0 0;
     padding: 0;
     display: grid;
-    gap: 16px;
-    position: relative;
+    gap: 14px;
   }
   @media (min-width: 720px) {
     .outcomes {
@@ -114,24 +154,31 @@ const d = entry.data;
     }
   }
   .outcomes li {
-    padding: 20px 22px;
+    padding: 22px 24px;
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 6px;
+    border-radius: 22px;
+    background: var(--coral);
+    color: #ffffff;
+    box-shadow: 0 8px 24px rgba(120, 20, 40, 0.14);
   }
   .outcomes strong {
-    font-size: 1.6rem;
-    font-weight: 800;
-    color: var(--accent);
-    letter-spacing: -0.02em;
+    font-family: var(--font-serif);
+    font-size: 1.9rem;
+    line-height: 1;
+    letter-spacing: -0.03em;
   }
   .outcomes span {
-    color: var(--muted);
-    font-size: 0.9rem;
+    font-size: 0.92rem;
     line-height: 1.45;
   }
   .flow-wrap {
-    margin: 48px 0 8px;
+    margin: 44px 0 8px;
+  }
+  .flow-wrap h2,
+  .tools h2 {
+    font-size: 1.3rem;
   }
   .flow {
     list-style: none;
@@ -143,18 +190,16 @@ const d = entry.data;
     align-items: center;
   }
   .flow li {
-    padding: 10px 14px;
-    border-radius: 10px;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-left: 3px solid var(--accent);
-    font-size: 0.9rem;
-    font-weight: 500;
+    padding: 10px 16px;
+    border-radius: 999px;
+    background: var(--frame);
+    font-size: 0.92rem;
+    font-weight: 700;
   }
   .flow li:not(:last-child)::after {
-    content: '\2192';
+    content: '\2192' / '';
     margin-left: 14px;
-    color: var(--muted);
+    color: var(--accent);
   }
   .body {
     display: grid;
@@ -168,15 +213,15 @@ const d = entry.data;
     }
     .tools {
       position: sticky;
-      top: 88px;
+      top: 96px;
     }
   }
   .prose {
     max-width: 720px;
-    font-size: 1.04rem;
+    font-size: 1.05rem;
   }
   .prose :global(h2) {
-    font-size: 1.35rem;
+    font-size: 1.45rem;
     margin-top: 1.8em;
   }
   .prose :global(h2:first-child) {
@@ -186,14 +231,12 @@ const d = entry.data;
     padding-left: 1.2em;
   }
   .prose :global(li) {
-    margin-bottom: 0.4em;
-  }
-  .prose :global(p),
-  .prose :global(li) {
-    color: var(--text);
+    margin-bottom: 0.45em;
   }
   .tools {
     padding: 22px;
+    border-radius: var(--radius);
+    background: var(--frame);
   }
   .tools .chip {
     white-space: normal;
@@ -205,15 +248,22 @@ const d = entry.data;
     display: flex;
     flex-direction: column;
     gap: 4px;
-    padding: 22px 26px;
+    padding: 24px 28px;
+    border-radius: var(--radius);
+    background: var(--text);
     text-decoration: none;
-    color: var(--text);
+    color: #ffffff;
   }
   .next a:hover {
-    border-color: var(--accent);
+    background: #2f2a29;
+    color: #ffffff;
   }
   .next span {
-    font-size: 0.85rem;
-    color: var(--muted);
+    font-size: 0.88rem;
+    color: #d9d2cf;
+  }
+  .next strong {
+    font-family: var(--font-serif);
+    font-size: 1.3rem;
   }
 </style>

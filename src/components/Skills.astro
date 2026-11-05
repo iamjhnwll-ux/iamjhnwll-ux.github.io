@@ -1,21 +1,24 @@
 ---
 import { skills } from '../data/site.js';
+import SectionHead from './SectionHead.astro';
+
+const dots = ['#6366f1', '#f43f5e', '#10b981', '#f59e0b', '#06b6d4', '#8b5cf6', '#ec4659'];
 ---
 
 <section id="skills" class="section">
   <div class="container">
-    <div class="section-head">
-      <span class="eyebrow">Tools and skills</span>
-      <h2>Tools and skills</h2>
-    </div>
+    <SectionHead title="Tools and skills" />
     <div class="grid">
       {
-        skills.map((g) => (
-          <div class="card group">
-            <h3>{g.group}</h3>
+        skills.map((g, i) => (
+          <div class="group">
+            <h3>
+              <span class="dot" style={`background:${dots[i % dots.length]}`} aria-hidden="true" />
+              {g.group}
+            </h3>
             <ul class="chips">
-              {g.items.map((i) => (
-                <li class="chip">{i}</li>
+              {g.items.map((it) => (
+                <li class="chip">{it}</li>
               ))}
             </ul>
           </div>
@@ -28,19 +31,28 @@ import { skills } from '../data/site.js';
 <style>
   .grid {
     display: grid;
-    gap: 12px;
-    grid-template-columns: repeat(auto-fill, minmax(min(100%, 250px), 1fr));
+    gap: 16px;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr));
   }
   .group {
-    padding: 14px 16px 16px;
-    border-radius: 12px;
+    padding: 20px 22px 22px;
+    border-radius: var(--radius);
+    background: var(--frame);
   }
   h3 {
-    font-size: 0.86rem;
-    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.1rem;
+    margin-bottom: 14px;
+  }
+  .dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
   }
   .chip {
     white-space: normal;
-    font-size: 0.76rem;
+    font-size: 0.8rem;
   }
 </style>

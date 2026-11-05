@@ -1,13 +1,15 @@
 ---
 import { impact } from '../data/site.js';
+import SectionHead from './SectionHead.astro';
 ---
 
-<section class="impact" aria-label="Results at a glance">
+<section class="impact" aria-labelledby="results-title">
   <div class="container">
+    <SectionHead title="Results at a glance" id="results-title" light />
     <ul class="grid">
       {
         impact.map((i) => (
-          <li class="card">
+          <li>
             <strong>{i.value}</strong>
             <span>{i.label}</span>
           </li>
@@ -19,12 +21,14 @@ import { impact } from '../data/site.js';
 
 <style>
   .impact {
-    padding: 16px 0 8px;
+    background: var(--coral);
+    padding: 52px 0 56px;
+    margin: 28px 0;
   }
   .grid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 12px;
+    gap: 14px;
     list-style: none;
     margin: 0;
     padding: 0;
@@ -42,19 +46,22 @@ import { impact } from '../data/site.js';
   li {
     display: flex;
     flex-direction: column;
-    gap: 4px;
-    padding: 16px 18px;
-    border-radius: 12px;
+    gap: 6px;
+    padding: 20px 20px 18px;
+    border-radius: 20px;
+    background: #ffffff;
+    box-shadow: 0 8px 24px rgba(120, 20, 40, 0.18);
   }
   strong {
-    font-size: 1.7rem;
-    font-weight: 800;
+    font-family: var(--font-serif);
+    font-size: 2rem;
+    font-weight: 700;
     letter-spacing: -0.03em;
-    color: var(--accent);
-    line-height: 1.1;
+    line-height: 1;
+    color: var(--text);
   }
   span {
-    font-size: 0.82rem;
+    font-size: 0.85rem;
     color: var(--muted);
     line-height: 1.4;
   }

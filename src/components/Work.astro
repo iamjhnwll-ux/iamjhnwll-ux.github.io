@@ -1,42 +1,46 @@
 ---
 import { getCollection } from 'astro:content';
+import Illustration from './Illustration.astro';
+import SectionHead from './SectionHead.astro';
+import { profile } from '../data/site.js';
 
 const work = (await getCollection('work')).sort((a, b) => a.data.order - b.data.order);
 ---
 
 <section id="work" class="section">
   <div class="container">
-    <div class="section-head">
-      <span class="eyebrow">Selected work</span>
-      <h2>Selected work</h2>
-    </div>
+    <SectionHead title="Selected work" />
     <div class="grid">
       {
         work.map((w) => (
-          <article class="card item">
-            <span class="tag">{w.data.area}</span>
-            <h3>
-              <a href={`/work/${w.id}/`}>{w.data.title}</a>
-            </h3>
-            <p class="summary">{w.data.summary}</p>
-            {w.data.outcomes[0] && (
-              <p class="result">
-                {w.data.outcomes[0].value} {w.data.outcomes[0].label}
-              </p>
-            )}
-            <div class="foot">
-              <ul class="chips">
-                {w.data.tools.slice(0, 3).map((t) => (
-                  <li class="chip">{t}</li>
-                ))}
-              </ul>
-              <span class="more" aria-hidden="true">
-                Read case study &rarr;
-              </span>
+          <article class="item">
+            <div class="frame">
+              <div class="art">
+                <Illustration slug={w.id} />
+              </div>
+            </div>
+            <div class="body">
+              <span class="area">{w.data.area}</span>
+              <h3>
+                <a href={`/work/${w.id}/`}>{w.data.title}</a>
+              </h3>
+              <p class="summary">{w.data.summary}</p>
+              {w.data.outcomes[0] && (
+                <p class="result">
+                  {w.data.outcomes[0].value} {w.data.outcomes[0].label}
+                </p>
+              )}
             </div>
           </article>
         ))
       }
+      <article class="item cta-card">
+        <div class="cta-inner">
+          <h3>Have a data problem in mind?</h3>
+          <p>I am open to part-time, contract and direct-hire work. Tell me about your sources and goals.</p>
+          <a class="btn btn--primary" href={`mailto:${profile.email}`}>Get in touch <span aria-hidden="true">&nearr;</span></a>
+        </div>
+      </article>
     </div>
   </div>
 </section>
@@ -44,41 +48,58 @@ const work = (await getCollection('work')).sort((a, b) => a.data.order - b.data.
 <style>
   .grid {
     display: grid;
-    gap: 14px;
+    gap: 34px 26px;
   }
-  @media (min-width: 760px) {
+  @media (min-width: 680px) {
     .grid {
       grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  @media (min-width: 1020px) {
+    .grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
     }
   }
   .item {
     position: relative;
     display: flex;
     flex-direction: column;
-    padding: 16px 18px;
-    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    gap: 16px;
   }
-  .item:focus-within {
-    outline: 3px solid var(--accent);
-    outline-offset: 2px;
+  .frame {
+    padding: 14px;
+    border-radius: var(--radius);
+    background: var(--frame);
+    box-shadow: inset 0 0 0 1px rgba(120, 70, 50, 0.05);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
   }
-  .item:hover {
-    border-color: #bfd3fb;
-    box-shadow: 0 6px 20px rgba(37, 99, 235, 0.08);
+  .item:hover .frame {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow);
   }
-  .tag {
-    align-self: flex-start;
-    padding: 2px 9px;
-    border-radius: 6px;
-    background: var(--accent-soft);
-    color: var(--accent-strong);
-    font-size: 0.72rem;
-    font-weight: 600;
-    margin-bottom: 8px;
+  .art {
+    border-radius: 18px;
+    overflow: hidden;
+    aspect-ratio: 400 / 260;
+    background: #ffffff;
+  }
+  .art :global(svg) {
+    width: 100%;
+    height: 100%;
+  }
+  .body {
+    padding: 0 6px;
+  }
+  .area {
+    display: block;
+    font-weight: 800;
+    font-size: 0.85rem;
+    color: var(--accent);
+    margin-bottom: 2px;
   }
   h3 {
-    font-size: 0.98rem;
-    margin-bottom: 4px;
+    font-size: 1.3rem;
+    margin-bottom: 8px;
   }
   h3 a {
     color: var(--text);
@@ -90,30 +111,50 @@ const work = (await getCollection('work')).sort((a, b) => a.data.order - b.data.
     inset: 0;
     border-radius: var(--radius);
   }
+  .item:focus-within .frame {
+    outline: 3px solid var(--accent);
+    outline-offset: 2px;
+  }
   .summary {
     color: var(--muted);
-    font-size: 0.84rem;
-    line-height: 1.45;
-    margin-bottom: 6px;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 8px;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
   .result {
-    color: var(--accent);
-    font-weight: 700;
-    font-size: 0.9rem;
-    margin-bottom: 12px;
+    font-weight: 800;
+    font-size: 0.92rem;
+    margin: 0;
   }
-  .foot {
-    margin-top: auto;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    gap: 10px;
+  .cta-card {
+    justify-content: center;
+    padding: 28px;
+    border-radius: var(--radius);
+    background: var(--text);
+    color: #ffffff;
+    min-height: 260px;
   }
-  .more {
-    color: var(--accent);
-    font-weight: 600;
-    font-size: 0.82rem;
-    white-space: nowrap;
+  .cta-card h3 {
+    color: #ffffff;
+    font-size: 1.5rem;
+  }
+  .cta-card p {
+    color: #d9d2cf;
+    font-size: 0.95rem;
+  }
+  .cta-card .btn {
+    background: #ffffff;
+    color: var(--text);
+    border-color: #ffffff;
+  }
+  .cta-card .btn:hover {
+    background: var(--yellow);
+    border-color: var(--yellow);
+    color: var(--text);
   }
 </style>

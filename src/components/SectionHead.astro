@@ -1,0 +1,41 @@
+---
+const { title, id, linkHref, linkLabel, light = false } = Astro.props;
+---
+
+<div class={`head ${light ? 'light' : ''}`}>
+  <div>
+    <h2 id={id}>{title}</h2>
+    <svg class="squiggle" viewBox="0 0 60 12" width="56" height="11" aria-hidden="true">
+      <path d="M2 8 L10 3 L18 8 L26 3 L34 8 L42 3 L50 8 L58 3" fill="none" stroke="#f7c948" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" />
+    </svg>
+  </div>
+  {linkHref && <a class="all" href={linkHref}>{linkLabel}</a>}
+</div>
+
+<style>
+  .head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 28px;
+  }
+  h2 {
+    margin: 0 0 6px;
+  }
+  .squiggle {
+    display: block;
+  }
+  .all {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 1.05rem;
+    color: var(--text);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+  .light h2,
+  .light .all {
+    color: #ffffff;
+  }
+</style>

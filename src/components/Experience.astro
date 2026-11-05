@@ -1,13 +1,11 @@
 ---
 import { experience, certifications, education, profile } from '../data/site.js';
+import SectionHead from './SectionHead.astro';
 ---
 
 <section id="experience" class="section">
   <div class="container">
-    <div class="section-head">
-      <span class="eyebrow">Experience</span>
-      <h2>Experience</h2>
-    </div>
+    <SectionHead title="Experience" />
     <div class="cols">
       <ol class="timeline">
         {
@@ -22,7 +20,7 @@ import { experience, certifications, education, profile } from '../data/site.js'
       </ol>
 
       <div class="side">
-        <div class="card box">
+        <div class="box">
           <h3>Certifications</h3>
           <ul class="certs">
             {
@@ -35,7 +33,7 @@ import { experience, certifications, education, profile } from '../data/site.js'
           </ul>
           <a class="all" href={profile.certsUrl} rel="noopener">See all 59 on LinkedIn</a>
         </div>
-        <div class="card box">
+        <div class="box">
           <h3>Education</h3>
           <p class="edu">
             {education.degree}
@@ -61,15 +59,15 @@ import { experience, certifications, education, profile } from '../data/site.js'
   .timeline {
     list-style: none;
     margin: 0;
-    padding: 0 0 0 26px;
+    padding: 0 0 0 28px;
     position: relative;
   }
   .timeline::before {
     content: '';
     position: absolute;
-    left: 6px;
-    top: 8px;
-    bottom: 8px;
+    left: 7px;
+    top: 10px;
+    bottom: 10px;
     width: 2px;
     background: var(--border);
   }
@@ -77,63 +75,67 @@ import { experience, certifications, education, profile } from '../data/site.js'
     position: relative;
     display: flex;
     flex-direction: column;
-    padding-bottom: 18px;
+    padding-bottom: 20px;
   }
   .timeline li::before {
     content: '';
     position: absolute;
-    left: -26px;
-    top: 5px;
-    width: 10px;
-    height: 10px;
+    left: -28px;
+    top: 6px;
+    width: 12px;
+    height: 12px;
     border-radius: 50%;
-    background: var(--surface);
-    border: 2px solid #9ca3af;
+    background: #ffffff;
+    border: 2px solid #c9b8b0;
   }
   .timeline li.current::before {
-    background: var(--accent);
-    border-color: var(--accent);
-    box-shadow: 0 0 0 4px var(--accent-soft);
+    background: var(--coral);
+    border-color: var(--coral);
+    box-shadow: 0 0 0 5px #ffe3e6;
   }
   .timeline strong {
-    font-size: 0.95rem;
+    font-family: var(--font-serif);
+    font-size: 1.1rem;
   }
   .role,
   .period {
-    font-size: 0.82rem;
+    font-size: 0.88rem;
     color: var(--muted);
-    line-height: 1.4;
+    line-height: 1.45;
   }
   .side {
     display: grid;
-    gap: 14px;
+    gap: 16px;
   }
   .box {
-    padding: 18px 20px;
+    padding: 22px 24px;
+    border-radius: var(--radius);
+    background: var(--frame);
   }
   .certs {
-    margin: 0 0 10px;
+    margin: 0 0 12px;
     padding-left: 18px;
     display: grid;
-    gap: 4px;
-    font-size: 0.86rem;
+    gap: 6px;
+    font-size: 0.9rem;
   }
   .certs span {
     color: var(--muted);
   }
   .all {
-    font-weight: 600;
-    font-size: 0.88rem;
-    text-decoration: none;
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 1rem;
+    color: var(--text);
   }
   .edu {
     margin: 0;
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     display: flex;
     flex-direction: column;
   }
   .edu span {
     color: var(--muted);
-    font-size: 0.84rem;
+    font-size: 0.88rem;
   }
 </style>

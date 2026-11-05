@@ -1,34 +1,35 @@
 :root {
-  --bg: #fafaf8;
-  --surface: #ffffff;
-  --surface-2: #f4f4f1;
-  --text: #111827;
-  --muted: #5b6472;
-  --border: #e7e5e0;
-  --accent: #2563eb;
-  --accent-strong: #1d4ed8;
-  --accent-soft: #eef4ff;
-  --on-accent: #ffffff;
-  --shadow: 0 1px 2px rgba(17, 24, 39, 0.04), 0 4px 16px rgba(17, 24, 39, 0.04);
-  --radius: 16px;
-  --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-  --font-mono: 'JetBrains Mono', ui-monospace, 'Cascadia Code', Consolas, monospace;
+  --bg: #ffffff;
+  --bg-soft: #fdf9f7;
+  --frame: #f6f0ed;
+  --text: #161616;
+  --muted: #5c5654;
+  --border: #eadfda;
+  --accent: #c2255c;
+  --coral: #d92d43;
+  --yellow: #f7c948;
+  --on-dark: #ffffff;
+  --grad: linear-gradient(90deg, #d6336c 0%, #d9480f 100%);
+  --shadow: 0 1px 2px rgba(60, 30, 20, 0.04), 0 10px 30px rgba(60, 30, 20, 0.06);
+  --radius: 28px;
+  --font-sans: 'Mulish', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-serif: 'Fraunces', Georgia, 'Times New Roman', serif;
   --container: 1120px;
-  --gutter: 16px;
+  --gutter: 20px;
 
-  /* Medallion layer tints */
-  --src-bg: #eef4ff;
-  --src-fg: #1e3a8a;
-  --bronze-bg: #fdebd8;
-  --bronze-fg: #8a4b14;
-  --silver-bg: #eceef1;
-  --silver-fg: #374151;
-  --gold-bg: #fdf3c4;
-  --gold-fg: #7a5a00;
-  --model-bg: #e3edff;
-  --model-fg: #1e40af;
-  --bi-bg: #dbe8ff;
-  --bi-fg: #1d4ed8;
+  /* Medallion layer tints (architecture diagram) */
+  --src-bg: #eef2ff;
+  --src-fg: #312e81;
+  --bronze-bg: #fbe3cf;
+  --bronze-fg: #7c3f12;
+  --silver-bg: #e8ebef;
+  --silver-fg: #2f3947;
+  --gold-bg: #fcefb4;
+  --gold-fg: #6b5200;
+  --model-bg: #e4e9ff;
+  --model-fg: #2f3fa0;
+  --bi-bg: #ffe0e8;
+  --bi-fg: #9d174d;
 
   color-scheme: light;
 }
@@ -41,7 +42,7 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 80px;
+  scroll-padding-top: 90px;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -61,8 +62,8 @@ body {
   background: var(--bg);
   color: var(--text);
   font-family: var(--font-sans);
-  font-size: 1rem;
-  line-height: 1.6;
+  font-size: 1.02rem;
+  line-height: 1.7;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
 }
@@ -75,47 +76,63 @@ svg {
 
 a {
   color: var(--accent);
-  text-decoration-thickness: 1px;
   text-underline-offset: 3px;
 }
 
 a:hover {
-  color: var(--accent-strong);
+  color: var(--text);
 }
 
 :focus-visible {
   outline: 3px solid var(--accent);
   outline-offset: 3px;
-  border-radius: 6px;
+  border-radius: 8px;
 }
 
 h1,
 h2,
 h3 {
-  line-height: 1.15;
-  letter-spacing: -0.025em;
+  font-family: var(--font-serif);
+  font-weight: 600;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
   margin: 0 0 0.5em;
   color: var(--text);
 }
 
 h1 {
-  font-size: clamp(2.3rem, 5vw, 3.4rem);
-  font-weight: 800;
+  font-weight: 400;
+  font-size: clamp(2.5rem, 6.4vw, 4.4rem);
+  letter-spacing: -0.03em;
 }
 
 h2 {
-  font-size: clamp(1.6rem, 3vw, 2.1rem);
-  font-weight: 750;
+  font-size: clamp(1.5rem, 3vw, 1.95rem);
 }
 
 h3 {
-  font-size: 1.06rem;
-  font-weight: 700;
-  letter-spacing: -0.01em;
+  font-size: 1.2rem;
 }
 
 p {
   margin: 0 0 1em;
+}
+
+em.grad,
+.grad {
+  font-style: italic;
+  font-weight: 400;
+  background: var(--grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@supports not (background-clip: text) {
+  em.grad,
+  .grad {
+    color: var(--accent);
+  }
 }
 
 .container {
@@ -132,46 +149,26 @@ p {
 }
 
 .section {
-  padding: 48px 0;
-}
-
-.eyebrow {
-  display: inline-block;
-  font-family: var(--font-mono);
-  font-size: 0.74rem;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin-bottom: 6px;
-}
-
-.section-head {
-  max-width: 720px;
-  margin-bottom: 24px;
-}
-
-.section-head p {
-  color: var(--muted);
+  padding: 56px 0;
 }
 
 .card {
-  background: var(--surface);
+  background: #ffffff;
   border: 1px solid var(--border);
-  border-radius: var(--radius);
+  border-radius: 20px;
   box-shadow: var(--shadow);
 }
 
 .chip {
   display: inline-flex;
   align-items: center;
-  padding: 3px 11px;
+  padding: 3px 12px;
   border-radius: 999px;
-  background: var(--surface);
+  background: #ffffff;
   border: 1px solid var(--border);
   color: var(--text);
   font-size: 0.8rem;
-  font-weight: 500;
+  font-weight: 600;
   white-space: nowrap;
 }
 
@@ -189,55 +186,46 @@ p {
   align-items: center;
   justify-content: center;
   gap: 8px;
-  padding: 10px 18px;
-  border-radius: 8px;
-  font-weight: 600;
-  font-size: 0.92rem;
+  padding: 14px 26px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 0.95rem;
   text-decoration: none;
-  border: 1.5px solid transparent;
-  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+  border: 1.5px solid var(--text);
+  transition: transform 0.15s ease, background 0.15s ease, color 0.15s ease;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
 }
 
 .btn--primary {
-  background: var(--accent);
-  color: var(--on-accent);
+  background: var(--text);
+  color: var(--on-dark);
 }
 
 .btn--primary:hover {
-  background: var(--accent-strong);
-  color: var(--on-accent);
+  background: #2f2a29;
+  color: var(--on-dark);
 }
 
 .btn--ghost {
-  border-color: var(--text);
+  background: transparent;
   color: var(--text);
-  background: var(--surface);
 }
 
 .btn--ghost:hover {
-  border-color: var(--accent);
-  color: var(--accent);
+  background: var(--text);
+  color: var(--on-dark);
 }
 
 .layer {
   display: inline-flex;
   align-items: center;
   padding: 4px 10px;
-  border-radius: 6px;
+  border-radius: 8px;
   font-size: 0.78rem;
-  font-weight: 600;
-}
-
-.layer--src { background: var(--surface); color: var(--text); border: 1px solid var(--border); }
-.layer--bronze { background: var(--bronze-bg); color: var(--bronze-fg); }
-.layer--silver { background: var(--silver-bg); color: var(--silver-fg); }
-.layer--gold { background: var(--gold-bg); color: var(--gold-fg); }
-.layer--model { background: var(--model-bg); color: var(--model-fg); }
-.layer--bi { background: var(--bi-bg); color: var(--bi-fg); }
-
-.arrow {
-  color: var(--text);
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .skip-link {
@@ -245,10 +233,10 @@ p {
   left: 16px;
   top: -60px;
   z-index: 100;
-  background: var(--accent);
-  color: var(--on-accent);
+  background: var(--text);
+  color: var(--on-dark);
   padding: 10px 16px;
-  border-radius: 8px;
+  border-radius: 999px;
 }
 
 .skip-link:focus {
