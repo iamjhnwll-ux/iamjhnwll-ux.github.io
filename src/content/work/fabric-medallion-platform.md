@@ -9,7 +9,7 @@ tools: [Microsoft Fabric, OneLake, Lakehouse, Fabric Warehouse, PySpark, Spark S
 flow: [Seven source systems, Bronze per source, Silver per source, Unified Gold Warehouse, Direct Lake semantic models, Power BI and paginated reports]
 outcomes:
   - { value: '7', label: 'source systems across DEV, QA and PROD' }
-  - { value: '95', label: '71 paginated reports, 18 Power BI reports and 6 semantic models' }
+  - { value: '95', label: 'reporting assets so far (as of Oct 2026): 71 paginated reports, 18 Power BI reports, 6 semantic models' }
   - { value: 'AU$2M', label: 'projected programme ROI, plus AU$150K projected annual savings' }
 ---
 
@@ -30,6 +30,6 @@ I lead the architecture and the ingestion-pattern design for the programme.
 
 ## The result
 
-- 71 paginated (RDL) reports, 18 Power BI reports and 6 semantic models built and released through Git.
+- As of October 2026: 71 paginated (RDL) reports, 18 Power BI reports and 6 semantic models built and released through Git. These counts keep growing as new work ships.
 - Shared business definitions held in one unified Gold Warehouse.
 - The programme's projected benefits are AU$2M ROI and AU$150K annual savings. These are programme projections, not measured results.

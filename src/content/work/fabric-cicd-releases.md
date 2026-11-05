@@ -8,7 +8,7 @@ order: 2
 tools: [Git, GitHub, GitHub Actions, fabric-cicd, Microsoft Fabric, Paginated reports (RDL), Contract tests, Runbooks]
 flow: [Git, GitHub Actions and fabric-cicd, DEV, QA, Approval, PROD]
 outcomes:
-  - { value: '28', label: 'releases in 10 weeks' }
+  - { value: '28', label: 'releases in 10 weeks (Jul to Oct 2026)' }
   - { value: '3', label: 'environments: DEV, QA and PROD' }
   - { value: 'PROD', label: 'deployment approver for the programme' }
 ---
@@ -26,6 +26,6 @@ A multi-environment Fabric programme needs repeatable, approval-controlled promo
 
 ## The result
 
-- 28 releases in 10 weeks across DEV, QA and PROD.
+- 28 releases in 10 weeks (Jul to Oct 2026) across DEV, QA and PROD. Releases have continued since.
 - Repeatable, approval-controlled promotion.
 - Tests, runbooks and documentation ready for review and handover.

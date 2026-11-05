@@ -1,5 +1,5 @@
 ---
-import { impact, scale } from '../data/site.js';
+import { impact, scale, countsAsOf } from '../data/site.js';
 import SectionHead from './SectionHead.astro';
 ---
 
@@ -24,6 +24,7 @@ import SectionHead from './SectionHead.astro';
     </ul>
 
     <h3 class="scale-title">Scale of delivery</h3>
+    <p class="asof">As of {countsAsOf}, and still growing.</p>
     <ul class="scale">
       {
         scale.map((s) => (
@@ -109,6 +110,11 @@ import SectionHead from './SectionHead.astro';
     font-size: 0.95rem;
     letter-spacing: 0.02em;
     margin: 36px 0 14px;
+  }
+  .asof {
+    color: #ffffff;
+    font-size: 0.88rem;
+    margin: -8px 0 14px;
   }
   .scale {
     display: grid;

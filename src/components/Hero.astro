@@ -1,13 +1,17 @@
 ---
 import { profile, availability } from '../data/site.js';
 
-// Set to '/profile.jpg' once a photo is added to public/.
-const photo = null;
+const photo = '/profile.webp';
 ---
 
 <section class="hero">
   <div class="glow" aria-hidden="true"></div>
   <div class="container inner">
+    {
+      photo && (
+        <img class="photo" src={photo} alt={`Portrait of ${profile.name}`} width="128" height="128" fetchpriority="high" />
+      )
+    }
     <span class="pill"><span class="dot" aria-hidden="true"></span>Open to new opportunities</span>
     <h1>
       John Well Arellano. Data Engineer building <span class="hl">governed data platforms</span> on Microsoft Fabric.
@@ -24,11 +28,6 @@ const photo = null;
       Currently leading architecture and ingestion-pattern design for Project Harvest, a seven-source Microsoft Fabric
       programme for an Australian retailer.
     </p>
-    {
-      photo && (
-        <img class="photo" src={photo} alt={`Portrait of ${profile.name}`} width="140" height="140" />
-      )
-    }
   </div>
 </section>
 
@@ -115,13 +114,12 @@ const photo = null;
     margin: 0;
   }
   .photo {
-    margin-top: 28px;
-    width: 140px;
-    height: 140px;
+    margin-bottom: 20px;
+    width: 128px;
+    height: 128px;
     border-radius: 50%;
     object-fit: cover;
-    filter: grayscale(1);
     border: 5px solid #ffffff;
-    box-shadow: var(--shadow);
+    box-shadow: 0 10px 30px rgba(17, 24, 39, 0.18);
   }
 </style>

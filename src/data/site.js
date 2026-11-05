@@ -25,11 +25,14 @@ export const impact = [
   { value: '30,000+', label: 'investment records migrated with zero data loss', status: 'Delivered' },
 ];
 
+// Counts grow as new work ships. Update the date when the figures are refreshed from the repository.
+export const countsAsOf = "Oct 2026";
+
 export const scale = [
   { value: '7', label: 'source systems in one platform' },
   { value: '3', label: 'environments: DEV, QA, PROD' },
-  { value: '28', label: 'releases in 10 weeks' },
-  { value: '95', label: 'reporting assets: 71 paginated reports, 18 Power BI reports, 6 semantic models' },
+  { value: '28', label: 'releases in 10 weeks (Jul to Oct 2026)' },
+  { value: '95', label: 'reporting assets so far: 71 paginated reports, 18 Power BI reports, 6 semantic models' },
   { value: '6+', label: 'years in data and operations' },
 ];
 
