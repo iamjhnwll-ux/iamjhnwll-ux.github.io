@@ -8,7 +8,7 @@ order: 9
 tools: [Microsoft Fabric, Data Factory pipelines, Fabric notebooks, PySpark, GitHub Actions, Contract tests]
 flow: [Source system, Incremental extract, Bronze to Gold build, Model refresh, PROD-gated schedules]
 outcomes:
-  - { value: 'Incremental', label: 'extraction that skips unchanged records' }
+  - { value: 'Incremental', label: 'telematics extraction that skips unchanged routes' }
   - { value: 'PROD-gated', label: 'schedules are committed disabled and switched on for production at deploy' }
   - { value: 'Tested', label: 'a contract test checks the schedule settings' }
 ---
@@ -19,7 +19,7 @@ On a seven-source Microsoft Fabric platform, every scheduled run uses shared cap
 
 ## What I did
 
-- **Incremental extraction.** I gave a source extract incremental behaviour. It skips records whose summary is unchanged since a recent capture, re-fetches anything older, and can still be forced into a full pull when needed.
+- **Incremental extraction.** I built an incremental transport telematics extract that skips unchanged routes: a route whose summary is unchanged since a recent capture is not pulled again. It re-fetches anything older, and can still be forced into a full pull when needed.
 - **Schedules gated to production.** I committed a scheduled metadata refresh as disabled so it runs only in PROD, and added a contract test that checks committed schedules ship disabled and are gated to production, so a schedule cannot reach the wrong environment by accident.
 - **Model refreshes that follow the data.** I added semantic model refreshes as steps in an existing pipeline run, so each model refreshes after the Gold build it reads from has finished.
 
@@ -29,5 +29,5 @@ The platform also tiers its Gold refreshes by how fresh each dataset needs to be
 
 ## The result
 
-- Less unnecessary work: unchanged records are skipped, schedules are gated to production and refreshes follow the data build.
+- Less unnecessary work: unchanged routes are skipped, schedules are gated to production and refreshes follow the data build.
 - I have not published a capacity or cost saving figure for this work. When I do, it will be labelled as measured, estimated or projected, like the figures elsewhere on this site.

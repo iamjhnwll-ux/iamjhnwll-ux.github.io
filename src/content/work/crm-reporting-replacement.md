@@ -8,7 +8,7 @@ order: 7
 tools: [Power BI, DirectQuery, Composite models, DAX, DealCloud]
 flow: [Live DealCloud data, DirectQuery and composite models, Power BI, Executive dashboards]
 outcomes:
-  - { value: '$25K', label: 'saved by replacing the vendor module' }
+  - { value: 'US$25K', label: 'saved by replacing the vendor module' }
   - { value: 'Live', label: 'DealCloud data through DirectQuery' }
   - { value: 'Real-time', label: 'dashboards for executives' }
 ---
@@ -25,5 +25,5 @@ Replace a vendor CRM reporting module with an in-house solution on the same Deal
 
 ## The result
 
-- $25,000 saved by replacing the vendor module.
+- USD 25,000 saved by replacing the vendor module.
 - Real-time dashboards for executives.

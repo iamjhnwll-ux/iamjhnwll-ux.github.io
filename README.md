@@ -1,6 +1,6 @@
 # John Well Arellano: portfolio website
 
-Source for **https://iamjhnwll-ux.github.io**, the portfolio of John Well Arellano, Data Engineer specialising in Microsoft Fabric, medallion architecture, dimensional modelling, CI/CD and Power BI.
+Source for **https://iamjhnwll-ux.github.io**, the portfolio of John Well Arellano, Senior Data Engineer and Analytics Engineer specialising in Microsoft Fabric, Databricks, medallion architecture, dimensional modelling, CI/CD and Power BI.
 
 ## What is inside
 

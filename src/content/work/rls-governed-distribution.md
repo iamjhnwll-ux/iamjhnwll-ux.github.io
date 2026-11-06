@@ -19,7 +19,7 @@ Deliver analytics to many audiences as governed data products, with clear contro
 
 ## The approach
 
-- **Dynamic row-level security.** Row-level security in the semantic models controls which rows each person can see.
+- **Dynamic row-level security.** I designed dynamic row-level security by sales rep and location, so each person sees only the rows meant for them.
 - **Distribution through apps.** Power BI org apps and workspace apps control which content each audience receives.
 - **Two separate controls.** Row-level data access and content distribution are designed as distinct controls.
 
